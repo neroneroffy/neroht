@@ -1,0 +1,39 @@
+@import "../../../assets/common-style";
+#header {
+  .header-height {
+    width: 100%;
+    //height: 80px;
+
+  }
+  .header-fixed {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 80px;
+    line-height: 80px;
+    .header-inner {
+      .container-center;
+      .logo {
+        color: @font-color-light;
+        font-size: 30px;
+        float: left;
+      }
+      .menu {
+        float: right;
+        margin-top: 8px;
+        padding-right: @padding-large;
+        .ant-menu {
+          background: none;
+          a {
+            color: @font-color-light;
+          }
+        }
+        .ant-menu-horizontal {
+          border-bottom: none;
+        }
+
+      }
+    }
+
+  }
+}

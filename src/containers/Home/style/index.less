@@ -1,0 +1,47 @@
+@import "../../../assets/common-style.less";
+#home {
+  .banner {
+    height: 700px;
+    font-size: @font-size-title;
+    color: @font-color-light;
+    background-color: #110801;
+    background-image: url("../../../assets/img/bg.jpg");
+    .banner-inner {
+      .container-center;
+      text-align: center;
+      line-height: 700px;
+      font-size: 400px;
+      span {
+        text-shadow: 2px 2px 0px #1d0e01;
+        margin-top: 30px;
+      }
+    }
+  }
+  .content {
+    margin: @padding-large 0;
+    .about-website {
+      h1 {
+        font-size: @font-size-title;
+        font-weight: bold;
+        margin-bottom: @padding-small;
+      }
+      .accounts {
+        display: flex;
+        justify-content: center;
+        & > a {
+          text-align: center;
+          margin: 0 @padding-base;
+          color: @font-color-gray;
+          font-size: 30px;
+          transition: all .3s ease-in;
+          div {
+            font-size: @font-size-base;
+          }
+          &:hover {
+            color: @primary-color;
+          }
+        }
+      }
+    }
+  }
+}
