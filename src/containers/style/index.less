@@ -1,12 +1,26 @@
-//@import "../../assets/common-style.less";
-body, html, ul, li, p, h1, h2, h3, h4, h5, h6 {
+@import "../../assets/common-style.less";
+body, html {
   margin: 0;
   padding: 0;
 }
-ul {
-  list-style: none;
+
+h1,h2,h3,h4,h5,h6 {
+  font-weight: bold;
+  margin-top: @padding-large;
+}
+hr {
+  margin: @padding-small 0;
 }
 a {
   text-decoration: none;
-
+}
+pre {
+  background-color: @background-light;
+  padding: @padding-base;
+  margin: @padding-base 0;
+}
+blockquote {
+  padding: @padding-base;
+  border-left: 3px solid @primary-color;
+  background-color: @background-light;
 }

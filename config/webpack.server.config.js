@@ -22,34 +22,20 @@ const serverConfig = {
                 test: /\.js?$/,
                 loader: 'babel-loader',
                 exclude: /node_modules/,
-/*
-                options: {
-                    presets: [
-                        [
-                            'env',
-                            {
-                                targets: {
-                                    "node": "current"
-                                }
-                            }
-                        ]
-                    ]
-                }
-*/
-
             },
             {
                 test: /\.less$/,
                 use: [
                     { loader: 'isomorphic-style-loader' },
                     { loader: 'css-loader' },
+                    { loader: 'postcss-loader' },
                     {
                         loader: 'less-loader',
                         options: {
                             modifyVars: theme,
                             javascriptEnabled: true
                         }
-                    }
+                    },
                 ]
             },
             {
@@ -57,6 +43,7 @@ const serverConfig = {
                 use: [
                     'isomorphic-style-loader',
                     'css-loader',
+                    'postcss-loader'
                 ],
             }
 

@@ -9,6 +9,7 @@ import ReactDom from 'react-dom'
 import Container from '../containers'
 import { AppContainer } from 'react-hot-loader'
 import { BrowserRouter } from 'react-router-dom'
+
 const root = document.getElementById('root')
 if (module.hot) {
     module.hot.accept(() => {

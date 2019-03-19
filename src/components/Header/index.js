@@ -19,7 +19,17 @@ class Header extends React.Component {
         this.setState({
             current: window.location.pathname
         });
-
+        window.addEventListener('scroll', this.handleScroll)
+    }
+    componentWillUnmount() {
+      window.removeEventListener('scroll')
+    }
+    handleScroll = () => {
+      if (window.scrollY > 570) {
+          this.refs.header.style.background = "#160e0f";
+      }else{
+        this.refs.header.style.background = "rgba(22,14,15,0)";
+      }
     }
     handleClick = (e) => {
         this.setState({
@@ -29,7 +39,7 @@ class Header extends React.Component {
     render() {
         return (<div id="header">
             <div className="header-height"></div>
-            <div className="header-fixed">
+            <div className="header-fixed" ref="header">
                 <div className="header-inner">
                     <div className="logo">
                         <span className="icon-logo"></span>

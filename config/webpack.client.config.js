@@ -28,22 +28,6 @@ const clientConfig = {
                 test: /\.js$/,
                 loader: 'babel-loader',
                 exclude: /node_modules/,
-                // include: __dirname + 'src',
-/*
-                options: {
-                    presets: [
-                        '@babel/preset-react',
-                        [
-                            '@babel/preset-env',
-                        ]
-                    ],
-                    plugins: [
-                        'react-hot-loader/babel',
-                        '@babel/plugin-proposal-class-properties',
-                    ]
-                }
-*/
-
             }
         ]
     },
@@ -58,6 +42,7 @@ if(isDev) {
             use: [
                 { loader: 'style-loader' },
                 { loader: 'css-loader' },
+                { loader: 'postcss-loader' },
                 {
                     loader: 'less-loader',
                     options: {
@@ -114,6 +99,7 @@ if(isProd) {
                     }
                 },
                 { loader: 'css-loader' },
+                { loader: 'postcss-loader' },
                 {
                     loader: 'less-loader',
                     options: {
@@ -121,6 +107,7 @@ if(isProd) {
                         javascriptEnabled: true
                     }
                 },
+
 
             ]
         },
