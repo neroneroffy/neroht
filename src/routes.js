@@ -17,27 +17,27 @@ const AboutLazy = () => <Suspense fallback={<div>加载中，请稍后...</div>}
     <About/>
 </Suspense>*/
 export default [
-    {
+/*    {
         path: '/',
         component: Home,
         exact: true,
-    },
-    {
+    },*/
+  {
+    path: '/',
+    component: Article,
+    exact: true,
+  },
+  {
+    path: '/article-detail/:id',
+    component: ArticalDetail,
+    exact: true,
+  },
+
+  {
         path: '/work',
         component: Work,
         exact: true,
     },
-    {
-        path: '/article',
-        component: Article,
-        exact: true,
-    },
-      {
-        path: '/article/detail/:id',
-        component: ArticalDetail,
-        exact: true,
-      },
-
   {
         path: '/about',
         component: About,

@@ -22,11 +22,13 @@ class Home extends React.Component {
     }
     render() {
         return <div id="home">
+
             <div className="banner">
                 <div className="banner-inner">
                     <span className="icon-website-symbol"></span>
                 </div>
             </div>
+
             <section className="content">
                 <div className="container-center" ref="htmlContainer">
                 </div>

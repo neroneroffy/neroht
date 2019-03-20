@@ -5,7 +5,8 @@
  *
  */
 import React from 'react'
-import {Icon} from "antd";
+import { connect } from 'react-redux'
+import { getArticleList } from '../../actions/article'
 import { Link } from 'react-router-dom'
 import './style/index.less'
 
@@ -23,19 +24,25 @@ class Article extends React.Component {
           }
         ]
     }
+    componentDidMount() {
+      const { getArticleList } = this.props
+      getArticleList()
+    }
     render() {
         const { articalList } = this.state
         return <div id="article">
+
             <div className="banner">
                 <div className="banner-inner">
                     <span className="icon-website-symbol"></span>
                 </div>
             </div>
 
+
             <div className="artical-inner">
               {
                 articalList.map(v => <div className="article-item" key={v.id}>
-                  <Link to={`/article/detail/${v.id}`}>
+                  <Link to={`/article-detail/${v.id}`}>
                     <div className="top">
                       <h2>{v.title}</h2>
                       <div className="right">
@@ -52,4 +59,11 @@ class Article extends React.Component {
         </div>
     }
 }
-export default Article
+
+const mapState = state => {
+  return state
+}
+const mapDispatch = {
+  getArticleList
+}
+export default connect(mapState, mapDispatch)(Article)
