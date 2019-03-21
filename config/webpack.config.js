@@ -12,15 +12,15 @@ module.exports = {
                 loader: require.resolve('url-loader'),
                 options: {
                     limit: 8000,
-                    name: 'static/img/[name].[hash:8].[ext]',
+                    name: 'img/[name].[hash:8].[ext]',
                 },
             },
             {
                 test: /\.(woff2?|eot|ttf|otf|svg)(\?.*)?$/,
                 loader: 'url-loader',
                 options: {
-                    limit: 10000,
-                    name: 'static/fonts/[name].[hash:8].[ext]'
+                    limit: 100,
+                    name: 'fonts/[name].[hash:8].[ext]'
                 }
             }
         ]

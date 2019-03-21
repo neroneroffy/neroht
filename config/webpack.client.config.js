@@ -18,9 +18,10 @@ const isProd = process.env.NODE_ENV === 'production'
 const clientConfig = {
     entry: path.join(__dirname, '../src/client/index.js'),
     output: {
-        path: path.join(__dirname, '../public'),
-        filename: 'static/js/client.[hash:5].js',
-        chunkFilename: "static/js/[name].js",
+        path: path.join(__dirname, '../public/static/'),
+        filename: 'js/client.[hash:5].js',
+        chunkFilename: "js/[name].js",
+        publicPath: '/static/'
     },
     module: {
         rules: [
@@ -62,6 +63,7 @@ if(isDev) {
         path: path.join(__dirname, '../dev-public'),
         filename: '[name].client.js',
         chunkFilename: "[name].js",
+        publicPath: '/'
     }
     clientConfig.mode = 'development'
     clientConfig.module.rules = clientConfig.module.rules.concat(devRules)
@@ -95,7 +97,7 @@ if(isProd) {
                 {
                     loader: MiniCssExtractPlugin.loader,
                     options: {
-                        publicPath: '../../'
+                        publicPath: '/static/'
                     }
                 },
                 { loader: 'css-loader' },
@@ -134,8 +136,8 @@ if(isProd) {
 
     clientConfig.plugins = clientConfig.plugins.concat([
         new MiniCssExtractPlugin({
-            filename: "static/css/[name].css",
-            // chunkFilename: "static/css/style.[id].css",
+            filename: "css/[name].css",
+            // chunkFilename: "css/style.[id].css",
             // allChunks: true
         }),
         new HtmlWebpackPlugin({

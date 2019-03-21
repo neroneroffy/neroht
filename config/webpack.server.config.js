@@ -12,9 +12,10 @@ const serverConfig = {
     entry:  path.resolve(__dirname, '../src/server/app.js'),
     output: {
         path: path.resolve(__dirname, '../server-bundle'),
-        filename: 'root.server.js'
+        filename: 'root.server.js',
+        publicPath: '/static/'
     },
-    mode: 'development',
+    mode: 'production',
     target: "node",
     module: {
         rules: [

@@ -13,8 +13,11 @@ const fetchArticleList = data => ({
   data
 })
 export const getArticleList = () => async dispatch => {
-  const res = await axios.get('/api/article/list')
-  if (res) {
-    dispatch(fetchArticleList(res.data))
-  }
+  try {
+    const res = await axios.get('/api/article/list')
+    if (res) {
+      dispatch(fetchArticleList(res.data))
+    }
+  } catch (e) {}
+
 }
