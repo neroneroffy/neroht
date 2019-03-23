@@ -144,7 +144,7 @@ if(isProd) {
             title: '周海涛的个人网',
             filename: path.join(__dirname, '../public/static/index.html'),
             template: path.join(__dirname, '../dev-public/index.html'),
-            favicon: path.join(__dirname, '../dev-public/favicon2.ico'),
+            // favicon: path.join(__dirname, '../dev-public/favicon.ico'),
         })
         ]
     )

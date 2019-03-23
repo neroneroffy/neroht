@@ -25,43 +25,55 @@ class Article extends React.Component {
         ]
     }
     componentDidMount() {
-      const { getArticleList } = this.props
-      getArticleList()
+      const { getArticleList, articleList } = this.props
+      if (!articleList.length) {
+        getArticleList()
+      }
     }
     render() {
-        const { articalList } = this.state
-        return <div id="article">
-
-            <div className="banner">
-                <div className="banner-inner">
-                    <span className="icon-website-symbol"></span>
-                </div>
-            </div>
-
-
-            <div className="artical-inner">
-              {
-                articalList.map(v => <div className="article-item" key={v.id}>
-                  <Link to={`/article-detail/${v.id}`}>
-                    <div className="top">
-                      <h2>{v.title}</h2>
-                      <div className="right">
-                        <span>{v.author}</span>
-                        <span>{v.createTime}</span>
-                      </div>
-                    </div>
-                    <div className="brief">{v.brief}</div>
-                  </Link>
-                </div>)
-              }
-            </div>
-
+      const { articleList } = this.props
+      return <div id="article">
+        <div className="banner">
+          <div className="banner-inner">
+            <span className="icon-website-symbol"></span>
+          </div>
         </div>
+        <div className="artical-inner">
+          {
+            articleList.length === 0 ?
+              <>loading..loading..loading..loading..loading..loading..loading..loading..loading..loading..loading..loading..loading..loading..loading..loading..loading..loading..loading..loading..loading..loading..loading..loading..loading..loading..loading..loading..loading..loading..loading..loading..loading...</> :
+            articleList.map(v => <div key={v.email}>
+              <Link to={`/article-detail/1`}>{v.email}</Link>
+              </div>)
+/*
+            articleList.map(v => <div className="article-item" key={v.id}>
+              <Link to={`/article-detail/${v.id}`}>
+                <div className="top">
+                  <h2>{v.title}</h2>
+                  <div className="right">
+                    <span>{v.author}</span>
+                    <span>{v.createTime}</span>
+                  </div>
+                </div>
+                <div className="brief">{v.brief}</div>
+              </Link>
+            </div>)
+*/
+          }
+        </div>
+      </div>
     }
 }
 
+Article.loadData = store => {
+  return store.dispatch(getArticleList())
+}
+
 const mapState = state => {
-  return state
+  const { article } = state
+  return {
+    articleList: article.list
+  }
 }
 const mapDispatch = {
   getArticleList

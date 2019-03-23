@@ -6,6 +6,7 @@
  */
 import React from 'react'
 import { renderRoutes } from 'react-router-config'
+import { withRouter } from 'react-router-dom'
 import './Home/style/index.less'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
@@ -17,13 +18,13 @@ class Container extends React.Component {
     }
     render() {
         return <div>
-            <Header/>
+            <Header staticContext={this.props.staticContext}/>
             <div id="container">
                 { renderRoutes(routes) }
             </div>
-            <Footer/>
+            <Footer staticContext={this.props.staticContext}/>
           </div>
     }
 }
 
-export default Container
+export default withRouter(Container)

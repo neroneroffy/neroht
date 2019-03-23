@@ -10,7 +10,7 @@ import Container from '../containers'
 import { AppContainer } from 'react-hot-loader'
 import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
-import store from '../store'
+import clientStore from '../store/clientStore'
 
 const root = document.getElementById('root')
 if (module.hot) {
@@ -18,7 +18,7 @@ if (module.hot) {
         const NextApp = require('../containers/index.js').default
         ReactDom.render(
             <AppContainer>
-              <Provider store={store}>
+              <Provider store={clientStore}>
                 <BrowserRouter>
                   <NextApp/>
                 </BrowserRouter>
@@ -28,7 +28,7 @@ if (module.hot) {
 }
 ReactDom.hydrate(
     <AppContainer>
-      <Provider store={store}>
+      <Provider store={clientStore}>
         <BrowserRouter>
             <Container/>
         </BrowserRouter>

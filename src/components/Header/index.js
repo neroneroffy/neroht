@@ -15,6 +15,7 @@ class Header extends React.Component {
     state = {
         current: '/',
     }
+
     componentDidMount() {
         this.setState({
             current: window.location.pathname
@@ -53,8 +54,8 @@ class Header extends React.Component {
 {/*                            <Menu.Item key="/">
                                 <Link to='/'>首页</Link>
                             </Menu.Item>*/}
-                            <Menu.Item key="/article">
-                                <Link to='/article'>文字</Link>
+                            <Menu.Item key="/">
+                                <Link to='/'>文字</Link>
                             </Menu.Item>
                           <Menu.Item key="/work">
                             <Link to='/work'>作品</Link>

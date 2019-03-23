@@ -5,10 +5,18 @@
  *
  */
 import React from 'react'
+import withStyle from '../../utils/withStyle'
+import footerStyles from './style/index.less'
 import './style/index.less'
 
-export default () => <div id="foot">
-    <div className="foot-inner">
-        <span>京ICP备18056340号-1</span>
-    </div>
-</div>
+class Footer extends React.Component {
+  render() {
+      return <div id="foot">
+        <div className="foot-inner">
+          <span>京ICP备18056340号-1</span>
+        </div>
+      </div>
+  }
+}
+
+export default withStyle(Footer, footerStyles)
