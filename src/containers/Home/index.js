@@ -11,14 +11,12 @@ import withStyle from '../../utils/withStyle'
 import showdown from 'showdown'
 // import websiteSymbol from '../../assets/img/website-symbol.png'
 import { Icon } from 'antd'
-import text from './markdown'
 
-const converter = new showdown.Converter();
-const html = converter.makeHtml(text);
+
 
 class Home extends React.Component {
     componentDidMount() {
-        this.refs.htmlContainer.innerHTML = html
+
     }
     render() {
         return <div id="home">

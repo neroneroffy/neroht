@@ -29,7 +29,6 @@ const serverRender = (req, store, context) => {
   return template.replace('<!--app-->', content)
     .replace('server-render-css', cssStr)
     .replace('<!--initial-state-->', initialState)
-
 }
 
 export default serverRender

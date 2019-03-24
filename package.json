@@ -8,12 +8,17 @@
     "clear:client": "rimraf public",
     "clear:server": "rimraf server-bundle",
     "start:build": "npm run clear:server && npm run clear:client && npm run build:client && npm run build:server",
-    "start:server": "nodemon --watch build --exec node server-bundle/root.server.js",
-    "build:server": "webpack --config ./config/webpack.server.config.js",
+    "start:server": "nodemon --watch server-bundle --exec node \"./server-bundle/root.server.js\"",
+    "build:server": "npm run clear:server && webpack --config ./config/webpack.server.config.js",
     "build:client": "cross-env NODE_ENV=production webpack --config ./config/webpack.client.config.js",
     "dev": "cross-env NODE_ENV=development webpack-dev-server --config ./config/webpack.client.config.js",
     "build": "npm run clear && npm run build:client",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "nodemonConfig": {
+    "execMap": {
+      "npm": "npm"
+    }
   },
   "author": "",
   "license": "ISC",

@@ -7,7 +7,8 @@
 import * as ActionType from '../actions/article'
 
 const initialState = {
-  list: []
+  list: [],
+  detailData: ''
 }
 export function article(state = initialState, action) {
   switch (action.type) {
@@ -15,6 +16,11 @@ export function article(state = initialState, action) {
       return {
         ...state,
         list: action.data,
+      }
+    case ActionType.GET_ARTICLE_DETAIL:
+      return {
+        ...state,
+        detailData: action.data,
       }
     default:
       return state

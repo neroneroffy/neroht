@@ -23,13 +23,11 @@ export default [
     component: Article,
     loadData: Article.loadData,
     exact: true,
-    routes: [
-      {
-        path: '/article-detail/:id',
-        component: ArticalDetail,
-        exact: true,
-      },
-    ]
+  },
+  {
+    path: '/article-detail/:id',
+    component: ArticalDetail,
+    loadData: ArticalDetail.loadData,
   },
   {
     path: '/work',

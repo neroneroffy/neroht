@@ -15,15 +15,14 @@ class Header extends React.Component {
     state = {
         current: '/',
     }
-
     componentDidMount() {
         this.setState({
             current: window.location.pathname
         });
-        window.addEventListener('scroll', this.handleScroll)
+        // window.addEventListener('scroll', this.handleScroll)
     }
     componentWillUnmount() {
-      window.removeEventListener('scroll')
+      // window.removeEventListener('scroll')
     }
     handleScroll = () => {
       if (window.scrollY > 570) {
@@ -38,7 +37,7 @@ class Header extends React.Component {
         });
     }
     render() {
-        return (<div id="header">
+      return (<div id="header">
             <div className="header-height"></div>
             <div className="header-fixed" ref="header">
                 <div className="header-inner">

@@ -15,7 +15,7 @@ const serverConfig = {
         filename: 'root.server.js',
         publicPath: '/static/'
     },
-    mode: 'production',
+    mode: 'development',
     target: "node",
     module: {
         rules: [
