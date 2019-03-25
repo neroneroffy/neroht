@@ -13,6 +13,7 @@ import Container from '../containers'
 
 const serverRender = (req, store, context) => {
   const template = fs.readFileSync(process.cwd() + '/public/static/index.html', 'utf8')
+  const vendorCss = fs.readFileSync(process.cwd() + '/public/static/css/vendors.css', 'utf8')
   const content = renderToString(
     <Provider store={store}>
       <StaticRouter location={req.path} context={context}>
@@ -27,7 +28,7 @@ const serverRender = (req, store, context) => {
     }
 </script>`
   return template.replace('<!--app-->', content)
-    .replace('server-render-css', cssStr)
+    .replace('server-render-css', cssStr + vendorCss)
     .replace('<!--initial-state-->', initialState)
 }
 
