@@ -25,15 +25,13 @@ class Index extends React.Component {
   render() {
     const { detailData } = this.props
     const html = converter.makeHtml(detailData)
-    setTimeout(() => {
-      document.getElementsByClassName('md-content')[0].innerHTML = html
-    })
 
     return <div className="artical-detail">
       <div className="img-box">
         <img src={girl} alt=""/>
       </div>
-      <div className="md-content" ref="content"></div>
+      <div className="md-content" dangerouslySetInnerHTML={{__html: html}}>
+      </div>
       <div className="img-bg"></div>
     </div>
   }

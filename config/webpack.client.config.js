@@ -115,8 +115,8 @@ if(isProd) {
         },
     ]
     clientConfig.mode = 'production'
+    clientConfig.devtool = false
     clientConfig.module.rules = clientConfig.module.rules.concat(prodRules)
-
     clientConfig.optimization = {
         minimizer: [new UglifyJsPlugin()],
         runtimeChunk: {
