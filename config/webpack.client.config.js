@@ -69,7 +69,7 @@ if(isDev) {
     clientConfig.module.rules = clientConfig.module.rules.concat(devRules)
     clientConfig.devServer = {
         host: '0.0.0.0',
-        port: '9001',
+        port: '9000',
         inline: true,
         overlay: {
             error: true,

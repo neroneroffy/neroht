@@ -22,6 +22,7 @@
     .container-center;
     margin: 50px auto;
     .article-item {
+      margin-top: 40px;
       cursor: pointer;
       .top {
         display: flex;
@@ -29,21 +30,31 @@
         align-items: center;
         margin-bottom: @padding-small;
         h2 {
-          margin: 0
+          margin: 0;
+          transition: all .3s ease-in;
         }
         .right {
           span:nth-child(1) {
             margin-right: @padding-base;
+            color: @font-color-gray;
           }
         }
       }
       .brief {
+        color: @font-color-gray;
         overflow: hidden;
         text-overflow:ellipsis;
         display: -webkit-box;
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
         width:100%;
+        transition: all .3s ease-in;
+      }
+      &:hover {
+        h2,.brief {
+          color: @primary-color;
+        }
+
       }
     }
   }

@@ -29,12 +29,10 @@ app.get('*', (req, res) => {
   const store = serverStore()
   const matchedRoutes = matchRoutes(routes, req.path)
   const promises = []
-  console.log(matchedRoutes);
   for (const item of matchedRoutes) {
     if (item.route.loadData) {
       const promise = new Promise((resolve, reject) => {
         item.route.loadData(store).then(resolve).catch(resolve)
-        console.log(item.route.loadData(store));
       })
       promises.push(promise)
     }

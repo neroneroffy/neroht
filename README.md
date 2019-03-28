@@ -1,16 +1,20 @@
+## 启动方式
 * 启动开发模式：npm run dev
 * 打包客户端代码： npm run build:client
 * 打包服务端代码： npm run build:server
 * 启动服务： npm run start:server
+* 打包&&启动服务：npm run server
+
+服务访问 localhost:8081
+前端开发服务访问 localhost:9000
 
 可以像上边一样一个一个地输入命令，也可以直接使用 **npm run start**来一次性打包客户端与服务端代码，并启动服务
 
 
+
 ## 前言
 这篇文章是我自己在搭建个人网站的过程中，用到了服务端渲染，看了一些教程，踩了一些坑。想把这个过程分享出来。
-我会尽力把每个步骤讲明白，串联起每个知识点。同时也希望大家多敲代码多练习。
-
-文中的示例代码来自于这个[仓库](https://github.com/neroneroffy/neroht)，也是我正在搭建的个人网站，大家可以一起交流一下。
+我会尽力把每个步骤讲明白，将我理解的全部讲出来。
 
 本文中用到的技术
 **React V16** | **React-Router v4** | **Redux** | **Redux-thunk** | **express**
@@ -27,7 +31,7 @@
 
 ### 一般的渲染方式
 * 服务端渲染：服务端生成html字符串，发送给浏览器进行渲染。
-* 浏览器端渲染：服务端返回空的html文件，内部加载js完全由js与css，由js完成页面的渲染
+* 浏览器端渲染：服务端返回空的html文件，内部加载js，完全由js完成页面的渲染
 
 ### 优点与缺点
 服务端渲染解决了首屏加载速度慢以及seo不友好的缺点（Google已经可以检索到浏览器渲染的网页，但不是所有搜索引擎都可以）
@@ -52,8 +56,8 @@ import ReactDOM from 'react-dom';
 
 ReactDOM.hydrate(<Container />, document.getElementById('root'));
 ```
-`当然这里用ReactDOM.render也是可以的，只不过hydrate会尽量复用接收到的服务端返回的内容，
-来补充事件绑定和浏览器端其他特有的过程`
+当然这里用ReactDOM.render也是可以的，只不过hydrate会尽量复用接收到的服务端返回的内容，
+来补充事件绑定和浏览器端其他特有的过程
 
 引入浏览器端需要渲染的根组件，利用react的 **renderToString** API进行渲染
 ```
@@ -68,9 +72,9 @@ const html = `
 `
 res.send(html)
 ```
-`在这里，renderToString也可以替换成renderToNodeStream，区别在于前者是同步地产生HTML，也就是如果生成HTML用了1000毫秒，
+在这里，renderToString也可以替换成renderToNodeStream，区别在于前者是同步地产生HTML，也就是如果生成HTML用了1000毫秒，
 那么就会在1000毫秒之后才将内容返回给浏览器，显然耗时过长。而后者则是以流的形式，将渲染结果塞给response对象，就是出来多少就
-返回给浏览器多少，可以相对减少耗时`
+返回给浏览器多少，可以相对减少耗时
 
 ## 路由的服务端渲染
 一般场景下，我们的应用不可能只有一个页面，肯定会有路由跳转。我们一般这么用：
@@ -83,8 +87,8 @@ const App = () => (
 )
 ```
 但这是浏览器端渲染时候的用法。在做服务端渲染时，需要使用将**BrowserRouter** 替换为 **StaticRouter**
-`区别在于，BrowserRouter 会通过HTML5 提供的 history API来保持页面与URL的同步，而StaticRouter
-则不会改变URL`
+区别在于，BrowserRouter 会通过HTML5 提供的 history API来保持页面与URL的同步，而StaticRouter
+则不会改变URL
 
 ```
 import { createServer } from 'http'
@@ -262,8 +266,7 @@ const clientStore = createStore(
 
 ## 样式的服务端渲染
 
-以上我们所做的事情只是让网页的内容经过了服务端的渲染，但是样式要在浏览器加载css后才会加上，u偶遇最开始返回的网页内容没有样式，页面依然会闪一下。
-为了解决这个问题，我们需要让样式也一并在服务端渲染的时候返回。
+以上我们所做的事情只是让网页的内容经过了服务端的渲染，但是样式要在浏览器加载css后才会加上，所以最开始返回的网页内容没有样式，页面依然会闪一下。为了解决这个问题，我们需要让样式也一并在服务端渲染的时候返回。
 
 首先，服务端渲染的时候，解析css文件，不能使用style-loader了，要使用isomorphic-style-loader。
 
@@ -278,8 +281,7 @@ const clientStore = createStore(
 }
 
 ```
-我们想，如何在服务端获取到当前路由内的组件样式呢？回想一下，我们在做路由的服务端渲染时，用到了StaticRouter，它会接收一个context对象，
-这个context对象可以作为一个载体来传递一些信息。我们就用它！
+但是，如何在服务端获取到当前路由内的组件样式呢？回想一下，我们在做路由的服务端渲染时，用到了StaticRouter，它会接收一个context对象，这个context对象可以作为一个载体来传递一些信息。我们就用它！
 
 思路就是在渲染组件的时候，在组件内接收context对象，获取组件样式，放到context中，服务端拿到样式，插入到返回的HTML中的style标签。
 
@@ -290,7 +292,7 @@ import style from './style/index.css'
 class Index extends React.Component {
     componentWillMount() {
       if (this.props.staticContext) {
-        const css = styles._getCss()
+        const css = style._getCss()
         this.props.staticContext.css.push(css)
       }
     }
@@ -299,6 +301,27 @@ class Index extends React.Component {
 在路由内的组件可以在props里接收到staticContext，也就是通过StaticRouter传递过来的context，
 isomorphic-style-loader 提供了一个 **_getCss()** 方法，让我们能读取到css样式，然后放到staticContext里。
 `不在路由之内的组件，可以通过父级组件，传递props的方法，或者用react-router的withRouter包裹一下`
+
+其实这部分提取css的逻辑可以写成高阶组件，这样就可以做到复用了
+
+```
+import React, { Component } from 'react'
+
+export default (DecoratedComponent, styles) => {
+  return class NewComponent extends Component {
+    componentWillMount() {
+      if (this.props.staticContext) {
+        const css = styles._getCss()
+        this.props.staticContext.css.push(css)
+      }
+    }
+    render() {
+      return <DecoratedComponent {...this.props}/>
+    }
+  }
+}
+```
+
 
 在服务端，经过组件的渲染之后，context中已经有内容了，我们这时候把样式处理一下，返回给浏览器，就可以做到样式的服务端渲染了
 ```
@@ -331,3 +354,4 @@ const serverRender = (req, store) => {
 
 React的服务端渲染，最好的解决方案就是Next.js。如果你的应用没有SEO优化的需求，又或者不太注重首屏渲染的速度，那么尽量就不要用服务端渲染。
 因为会让项目变得复杂。此外，除了服务端渲染，SEO优化的办法还有很多，比如预渲染（pre-render）。
+
