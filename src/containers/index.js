@@ -17,7 +17,7 @@ class Container extends React.Component {
         num: 1
     }
     render() {
-        return <div>
+        return <div id="container-wrapper">
             <Header staticContext={this.props.staticContext}/>
             <div id="container">
                 { renderRoutes(routes) }

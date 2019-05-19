@@ -15,15 +15,19 @@ import './index.less'
 const converter = new showdown.Converter();
 
 class Index extends React.Component {
+
   componentDidMount() {
     const { params } = this.props.match
+    const { detailData } = this.props
     this.props.getArticleDetail(params.id)
-
   }
 
   render() {
     const { detailData } = this.props
-    const html = converter.makeHtml(detailData.content)
+    let html = converter.makeHtml(detailData.content)
+    if (html) {
+      html = html.replace('/%%script%%/g', '<script').replace('/%%/script%%/g', '</script')
+    }
     return <div className="artical-detail">
       <div className="top">
         <h1>{detailData.title}</h1>
@@ -43,7 +47,7 @@ const mapDispatch = {
   getArticleDetail
 }
 const ArticalDetail = connect(mapState, mapDispatch)(withStyle(Index, style))
-ArticalDetail.loadData = store => {
-  return store.dispatch(getArticleDetail(1))
+ArticalDetail.loadData = (store, id) => {
+  return store.dispatch(getArticleDetail(id))
 }
 export default ArticalDetail

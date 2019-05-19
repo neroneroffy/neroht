@@ -5,27 +5,33 @@
  *
  */
 import axios from 'axios'
+import { API_SERVER } from '../constants'
 
-export const GET_ARTICLE_LIST = 'GET_ARTICLE_LIST'
+export const GET_ARTICLE_LIST_SUCCESS = 'GET_ARTICLE_LIST_SUCCESS'
 const actionArticleList = data => ({
-  type: GET_ARTICLE_LIST,
+  type: GET_ARTICLE_LIST_SUCCESS,
   data
 })
-export const getArticleList = () => dispatch => {
-  return axios.get('http://127.0.0.1:8081/api/article/list').then(res => {
+export const getArticleList = ({ page, size }) => dispatch => {
+  console.log('articleList 请求的url', API_SERVER)
+  return axios.get(`${API_SERVER}/article/list`, {
+    params: { page, size }
+  }).then(res => {
     dispatch(actionArticleList(res.data.data))
   }).catch(e => {
-    // console.log(e);
+    console.log('err-message',e.message);
   })
 }
 
-export const GET_ARTICLE_DETAIL = 'GET_ARTICLE_DETAIL'
+export const GET_ARTICLE_DETAIL_SUCCESS = 'GET_ARTICLE_DETAIL_SUCCESS'
 const actionArticleDetail = data => ({
-  type: GET_ARTICLE_DETAIL,
+  type: GET_ARTICLE_DETAIL_SUCCESS,
   data
 })
 export const getArticleDetail = id => dispatch => {
-  return axios.get(`http://127.0.0.1:8081/api/article/detail?id=${id}`).then(res => {
+  return axios.get(`${API_SERVER}/article/detail`, {
+    params: { id }
+  }).then(res => {
     return dispatch(actionArticleDetail(res.data.data))
   }).catch(e => {
     // console.log(e);

@@ -12,12 +12,12 @@ const initialState = {
 }
 export function article(state = initialState, action) {
   switch (action.type) {
-    case ActionType.GET_ARTICLE_LIST:
+    case ActionType.GET_ARTICLE_LIST_SUCCESS:
       return {
         ...state,
-        list: action.data,
+        ...action.data,
       }
-    case ActionType.GET_ARTICLE_DETAIL:
+    case ActionType.GET_ARTICLE_DETAIL_SUCCESS:
       return {
         ...state,
         detailData: action.data,

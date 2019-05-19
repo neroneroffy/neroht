@@ -22,14 +22,15 @@ const serverRender = (req, store, context) => {
     </Provider>
   )
   const cssStr = context.css.length ? context.css.join('\n') : ''
-  const initialState = `<script>
+  const state = JSON.stringify(store.getState()).replace(/<script/g, '%%script%%').replace(/<\/script/g, '%%/script%%')
+  const initialState = `
     window.context = {
-      INITIAL_STATE: ${JSON.stringify(store.getState())}
+      INITIAL_STATE: ${state}
     }
-</script>`
+`
   return template.replace('<!--app-->', content)
     .replace('server-render-css', cssStr + vendorCss)
-    .replace('<!--initial-state-->', initialState)
+    .replace('/*initial-state*/', initialState)
 }
 
 export default serverRender

@@ -41,30 +41,29 @@ class Header extends React.Component {
             <div className="header-height"></div>
             <div className="header-fixed" ref="header">
                 <div className="header-inner">
+                  <Link to='/'>
                     <div className="logo">
                         <span className="icon-logo"></span>
                     </div>
+                  </Link>
                     <div className="menu">
                         <Menu
                             onClick={this.handleClick}
                             selectedKeys={[this.state.current]}
                             mode="horizontal"
                         >
-{/*                            <Menu.Item key="/">
-                                <Link to='/'>首页</Link>
-                            </Menu.Item>*/}
                             <Menu.Item key="/">
-                                <Link to='/'>文字</Link>
+                                <Link to='/'>首页</Link>
+                            </Menu.Item>
+                            <Menu.Item key="/article">
+                                <Link to='/article'>文章</Link>
                             </Menu.Item>
                           <Menu.Item key="/work">
                             <Link to='/work'>作品</Link>
                           </Menu.Item>
-
-                            {/*
-                            <Menu.Item key="/about">
-                                <Link to='/about'>关于</Link>
-                            </Menu.Item>
-*/}
+                          <Menu.Item key="/about">
+                              <Link to='/about'>关于</Link>
+                          </Menu.Item>
                         </Menu>
                     </div>
                 </div>

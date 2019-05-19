@@ -75,7 +75,10 @@ if(isDev) {
             error: true,
         },
         contentBase: path.join(__dirname, '../dev-public'),
-        historyApiFallback: true,
+        proxy: {
+            '/api': 'http://localhost:3000'
+        },
+      historyApiFallback: true,
         hot: true,
     }
     clientConfig.plugins = clientConfig.plugins.concat([

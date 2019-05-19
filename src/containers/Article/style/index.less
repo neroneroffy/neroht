@@ -34,9 +34,9 @@
           transition: all .3s ease-in;
         }
         .right {
+          color: @font-color-gray;
           span:nth-child(1) {
             margin-right: @padding-base;
-            color: @font-color-gray;
           }
         }
       }
@@ -46,7 +46,9 @@
         text-overflow:ellipsis;
         display: -webkit-box;
         -webkit-line-clamp: 2;
+        /* autoprefixer: off */
         -webkit-box-orient: vertical;
+        /* autoprefixer: on */
         width:100%;
         transition: all .3s ease-in;
       }
@@ -56,6 +58,11 @@
         }
 
       }
+    }
+    .pagination {
+      margin-top: @padding-medium;
+      display: flex;
+      justify-content: flex-end;
     }
   }
 

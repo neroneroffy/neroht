@@ -6,9 +6,11 @@
  */
 import { combineReducers } from 'redux'
 import { article } from './article'
+import { tags } from './tags'
 
 const rootReducer = combineReducers({
   article,
+  tags,
 })
 
 export default rootReducer
