@@ -14,30 +14,53 @@ import withStyle from '../../utils/withStyle'
 import './style/index.less'
 import style from './style/index.less'
 import moment from 'moment'
-import { SPECIAL_CHARACTER_REG, PAGE, SIZE } from '../../constants'
+import { SPECIAL_CHARACTER_REG, PAGE, SIZE, PRIMARY_COLOR } from '../../constants'
+
+const { CheckableTag } = Tag;
 
 class Index extends React.Component {
-    state = {
-      page: PAGE,
-      size: SIZE,
+  state = {
+    page: PAGE,
+    size: SIZE,
+    selectedTags: [],
+  }
+  componentDidMount() {
+    const { getArticleList, articleList, getTagsList, tagsList } = this.props
+    const { page, size } = this.state
+    if (!tagsList.length) {
+      getTagsList()
     }
-    componentDidMount() {
-      const { getArticleList, articleList, getTagsList, tagsList } = this.props
-      const { page, size } = this.state
-      if (!tagsList) {
-        getTagsList()
-      }
-      if (!articleList.length) {
-        getArticleList({ page, size })
-      }
+    if (!articleList.length) {
+      this.loadArticleList()
     }
-    changePage = currentPage => {
+  }
+  loadArticleList = () => {
+    const { getArticleList } = this.props
+    const { page, size, selectedTags } = this.state
+    getArticleList({ page, size, tags: selectedTags.join(',') })
+  }
+  changePage = currentPage => {
       this.setState({
         page: currentPage - 1
-      })
+      }, () => this.loadArticleList())
     }
-    render() {
-      const { articleList, total } = this.props
+  onTagChange = id => {
+    if (id === 'all') {
+      this.setState({ selectedTags: [] }, () => this.loadArticleList())
+      return
+    }
+    let selectedTags = JSON.parse(JSON.stringify(this.state.selectedTags))
+    if (!selectedTags.includes(id)) {
+      selectedTags.push(id)
+    } else {
+      selectedTags = selectedTags.filter(v => v !== id)
+    }
+    this.setState({ selectedTags }, () => this.loadArticleList())
+  }
+
+  render() {
+    const { articleList, total, tagsList } = this.props
+    const { selectedTags } = this.state
       return <div id="article">
         <div className="banner">
           <div className="banner-inner">
@@ -47,6 +70,22 @@ class Index extends React.Component {
         <div className="artical-inner">
           <div className="top">
             <h2>最新文章</h2>
+            <div className="tags">
+              标签：
+              <CheckableTag
+                checked={selectedTags.length === 0}
+                onChange={() => this.onTagChange('all')}
+              >全部</CheckableTag>
+              {
+                tagsList.map(v => <CheckableTag
+                  key={v.id}
+                  checked={selectedTags.includes(v.id)}
+                  onChange={() => this.onTagChange(v.id)}
+                >
+                  { v.tagName }
+                </CheckableTag>)
+              }
+            </div>
           </div>
           {
             articleList.map(v => <div className="article-item" key={v.id}>

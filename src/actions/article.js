@@ -12,10 +12,10 @@ const actionArticleList = data => ({
   type: GET_ARTICLE_LIST_SUCCESS,
   data
 })
-export const getArticleList = ({ page, size }) => dispatch => {
+export const getArticleList = ({ page, size, tags }) => dispatch => {
   console.log('articleList 请求的url', API_SERVER)
   return axios.get(`${API_SERVER}/article/list`, {
-    params: { page, size }
+    params: { page, size, tags }
   }).then(res => {
     dispatch(actionArticleList(res.data.data))
   }).catch(e => {

@@ -3,3 +3,7 @@
 /node_modules
 /public
 /server-bundle
+package-lock.json
+/root-server
+root-server.zip
+
