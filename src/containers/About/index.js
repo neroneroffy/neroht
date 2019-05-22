@@ -5,15 +5,11 @@
  *
  */
 import React from 'react'
-import girl from '../../assets/img/girl.jpg'
 import './style/index.less'
 class About extends React.Component {
     render() {
-        return <div className="about">关于周海涛
-            <span className="icon-home2"></span>
-            <div>
-                <img src={girl} alt=""/>
-            </div>
+        return <div className="about">
+
         </div>
     }
 }
