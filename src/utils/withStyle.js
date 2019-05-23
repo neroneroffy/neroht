@@ -4,6 +4,7 @@ export default (DecoratedComponent, styles) => {
   return class NewComponent extends Component {
     componentWillMount() {
       if (this.props.staticContext) {
+        console.log(styles._getCss());
         const css = styles._getCss().replace('static/img', './img')
         this.props.staticContext.css.push(css)
       }

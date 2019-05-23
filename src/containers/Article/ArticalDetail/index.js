@@ -7,6 +7,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import showdown from 'showdown'
+import Message from '../../../components/Message'
 import { getArticleDetail } from '../../../actions/article'
 import withStyle from "../../../utils/withStyle";
 import style from './index.less'
@@ -34,6 +35,7 @@ class Index extends React.Component {
         <div className="author">{detailData.author}</div>
       </div>
       <div className="md-content" dangerouslySetInnerHTML={{__html: html}}></div>
+      <Message/>
     </div>
   }
 }

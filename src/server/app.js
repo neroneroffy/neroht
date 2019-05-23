@@ -37,10 +37,10 @@ app.get('*', (req, res) => {
   const matchedRoutes = matchRoutes(routes, req.path)
   const promises = []
   for (const item of matchedRoutes) {
+    const { id } =  item.match.params
     if (item.route.loadData) {
       const promise = new Promise((resolve, reject) => {
-        if (req.path.includes('article-detail')) {
-          const id = req.path.split('/')[3]
+        if (id) {
           item.route.loadData(store, id).then(resolve).catch(resolve)
         } else {
           item.route.loadData(store).then(resolve).catch(resolve)

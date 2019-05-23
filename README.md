@@ -28,14 +28,14 @@ Article.loadData = store => {
 ```
 
 ### 详情页含id的请求
-涉及到服务端刷新页面要根据id请求数据，但服务端无法正常在页面内获取id，
-暂时想到服务端根据req.path是否含有需要根据id请求的路由的关键字，截取id，传入路由的loadData方法，
+涉及到服务端刷新页面要根据id请求数据，服务端可以获取到路由参数：id，传入路由的loadData方法，
 组件内根据这个id去请求数据，扩充服务端store
 ```
+  for (const item of matchedRoutes) {
+    const { id } =  item.match.params
     if (item.route.loadData) {
       const promise = new Promise((resolve, reject) => {
-        if (req.path.includes('article-detail')) {
-          const id = req.path.split('/')[3]
+        if (id) {
           item.route.loadData(store, id).then(resolve).catch(resolve)
         } else {
           item.route.loadData(store).then(resolve).catch(resolve)
@@ -43,8 +43,8 @@ Article.loadData = store => {
       })
       promises.push(promise)
     }
+  }
 ```
-
 ### 注入的文章数据内含有script标签，会导致页面错乱
 可以在注入页面之前将‘<script’替换，页面显示时再替换回来
 ```
