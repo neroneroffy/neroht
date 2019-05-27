@@ -60,3 +60,8 @@ Article.loadData = store => {
      html = html.replace('/%%script%%/g', '<script').replace('/%%/script%%/g', '</script')
   }
 ```
+### 不在路由之内的组件如何做到服务端渲染样式？
+不在路由之内的组件是无法获取this.props.staticContext的，也就无法将组件的样式放入到staticContext从而
+进行服务端渲染。
+
+可以使用withRouter将组件包裹起来，就可以获取到staticContext

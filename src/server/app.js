@@ -17,7 +17,7 @@ app.use(express.static('public'))
 
 app.use('/api', proxy('http://127.0.0.1:3000', {
   proxyReqPathResolver: function (req) {
-    console.log('代理：', req.url);
+    // console.log('代理：', req.url);
     return '/api' + req.url
   }
 }));
@@ -48,6 +48,18 @@ app.get('*', (req, res) => {
       })
       promises.push(promise)
     }
+    if (item.route.component.loadData) {
+      const { loadData } = item.route.component
+      const promise = new Promise((resolve, reject) => {
+        if (id) {
+          loadData(store, id).then(resolve).catch(resolve)
+        } else {
+          loadData(store).then(resolve).catch(resolve)
+        }
+      })
+      promises.push(promise)
+    }
+
   }
   Promise.all(promises).then(() => {
     res.send(serverRender(req, store, context))

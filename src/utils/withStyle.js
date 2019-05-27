@@ -3,8 +3,8 @@ import React, { Component } from 'react'
 export default (DecoratedComponent, styles) => {
   return class NewComponent extends Component {
     componentWillMount() {
+      //@TODO 不在路由之内的组件，无法获得staticContext
       if (this.props.staticContext) {
-        console.log(styles._getCss());
         const css = styles._getCss().replace('static/img', './img')
         this.props.staticContext.css.push(css)
       }

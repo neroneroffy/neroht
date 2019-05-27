@@ -7,6 +7,7 @@
 import React from 'react'
 import { Form, Input } from 'antd'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 import styles from './style/index.less'
 import withStyle from '../../utils/withStyle'
 
@@ -26,4 +27,4 @@ const mapStateToProps = state => {
     ...state
   }
 }
-export default connect(mapStateToProps, {})(Message)
+export default connect(mapStateToProps, {})(withRouter(Message))
