@@ -4,6 +4,7 @@
  * Time: 23:11
  *
  */
+import { multiLoadData } from './utils'
 import React, { Suspense } from 'react'
 import Home from './containers/Home'
 import Work from './containers/Work'
@@ -11,6 +12,8 @@ import Article from './containers/Article'
 import ArticalDetail from './containers/Article/ArticalDetail'
 import About from './containers/About'
 import Container from './containers/index'
+import Message from './components/Message'
+
 // @TODO 懒加载开发
 /*const About = React.lazy(() => import('./containers/About'))
 const AboutLazy = () => <Suspense fallback={<div>加载中，请稍后...</div>}>
@@ -33,7 +36,7 @@ export default [
   {
     path: '/article/article-detail/:id',
     component: ArticalDetail,
-    loadData: ArticalDetail.loadData,
+    loadData: store => multiLoadData(store)(ArticalDetail, Message)
   },
   {
     path: '/work',

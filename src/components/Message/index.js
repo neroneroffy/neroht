@@ -18,13 +18,15 @@ class MessageComponent extends React.Component {
     </div>
   }
 }
-const Message = Form.create()(withStyle(MessageComponent, styles))
-Message.loadData = (store, articleId) => {
-  console.log('留言评论的请求')
-}
 const mapStateToProps = state => {
   return {
     ...state
   }
 }
-export default connect(mapStateToProps, {})(withRouter(Message))
+
+const Message = connect(mapStateToProps, {})(Form.create()(withRouter(withStyle(MessageComponent, styles))))
+Message.loadData = (store, articleId) => {
+  console.log('留言评论的请求')
+}
+
+export default Message

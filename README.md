@@ -26,7 +26,6 @@ Article.loadData = store => {
   return Promise.all(promises)
 }
 ```
-
 ### 详情页含id的请求
 涉及到服务端刷新页面要根据id请求数据，服务端可以获取到路由参数：id，传入路由的loadData方法，
 组件内根据这个id去请求数据，扩充服务端store
@@ -65,3 +64,27 @@ Article.loadData = store => {
 进行服务端渲染。
 
 可以使用withRouter将组件包裹起来，就可以获取到staticContext
+
+### 路由页面的子组件如何预获取数据？
+[解决方案](https://segmentfault.com/q/1010000019331177)
+
+原理如上所述，但项目之内将这个方法做了个封装：`src/utils/index.js` 之内的`multiLoadData`函数：
+```
+export const multiLoadData = store => (...components) => {
+  const loadDataArr = [...components].map(component => component.loadData(store))
+  return new Promise(resolve => Promise.all(loadDataArr).then(() => resolve()).catch(() => resolve()))
+}
+```
+使用时将store，以及路由页面和其所有的子组件传入即可：
+```
+  {
+    path: '/article/article-detail/:id',
+    component: ArticalDetail,
+    loadData: store => multiLoadData(store)(ArticalDetail, Message)
+  }
+```
+如此便解决了路由页面子组件数据预获取的问题。
+
+
+
+
