@@ -14,7 +14,7 @@ import withStyle from '../../utils/withStyle'
 import './style/index.less'
 import style from './style/index.less'
 import moment from 'moment'
-import { SPECIAL_CHARACTER_REG, PAGE, SIZE, PRIMARY_COLOR } from '../../constants'
+import { PAGE, SIZE } from '../../constants'
 
 const { CheckableTag } = Tag;
 

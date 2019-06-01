@@ -7,10 +7,12 @@
 import { combineReducers } from 'redux'
 import { article } from './article'
 import { tags } from './tags'
+import { message } from './message'
 
 const rootReducer = combineReducers({
   article,
   tags,
+  message,
 })
 
 export default rootReducer

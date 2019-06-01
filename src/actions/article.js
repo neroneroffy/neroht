@@ -38,3 +38,7 @@ export const getArticleDetail = id => dispatch => {
   })
 }
 
+export const CLEAR_ARTICLE_DETAIL = 'CLEAR_ARTICLE_DETAIL'
+export const clearArticleDetailData = () => dispatch => dispatch({
+  type: CLEAR_ARTICLE_DETAIL,
+})

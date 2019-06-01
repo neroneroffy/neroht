@@ -36,7 +36,7 @@ export default [
   {
     path: '/article/article-detail/:id',
     component: ArticalDetail,
-    loadData: store => multiLoadData(store)(ArticalDetail, Message)
+    loadData: (store, id) => multiLoadData(store, id)(ArticalDetail, Message)
   },
   {
     path: '/work',

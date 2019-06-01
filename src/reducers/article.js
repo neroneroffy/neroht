@@ -22,6 +22,12 @@ export function article(state = initialState, action) {
         ...state,
         detailData: action.data,
       }
+    case ActionType.CLEAR_ARTICLE_DETAIL:
+      return {
+        ...state,
+        list: [],
+        detailData: '',
+      }
     default:
       return state
   }

@@ -8,7 +8,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import showdown from 'showdown'
 import Message from '../../../components/Message'
-import { getArticleDetail } from '../../../actions/article'
+import { getArticleDetail, clearArticleDetailData } from '../../../actions/article'
 import withStyle from "../../../utils/withStyle";
 import style from './index.less'
 import './index.less'
@@ -19,7 +19,8 @@ class Index extends React.Component {
 
   componentDidMount() {
     const { params } = this.props.match
-    const { detailData } = this.props
+    const { clearArticleDetailData } = this.props
+    clearArticleDetailData()
     this.props.getArticleDetail(params.id)
   }
 
@@ -46,10 +47,12 @@ const mapState = state => {
   }
 }
 const mapDispatch = {
-  getArticleDetail
+  getArticleDetail,
+  clearArticleDetailData,
 }
 const ArticalDetail = connect(mapState, mapDispatch)(withStyle(Index, style))
 ArticalDetail.loadData = (store, id) => {
+  console.log('文章详情id', id)
   return store.dispatch(getArticleDetail(id))
 }
 export default ArticalDetail

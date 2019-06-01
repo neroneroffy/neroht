@@ -1,4 +1,28 @@
+@import "../../../assets/common-style.less";
 .message {
-  color: red;
-  font-size: 40px;
+  .ant-form-item {
+    margin-bottom: 0;
+  }
+  .comment-list {
+    margin-top: @padding-large;
+    .comment-item {
+      .comment-top {
+        margin-bottom: @padding-base;
+      }
+      margin-bottom: @padding-medium;
+      padding-bottom: @padding-base;
+      border-bottom: 1px solid @border-color-base;
+    }
+  }
+  .other-item {
+    width: 300px;
+  }
+  .action {
+    text-align: right;
+  }
+  .pagination {
+    margin-top: @padding-large;
+    display: flex;
+    justify-content: flex-end;
+  }
 }
