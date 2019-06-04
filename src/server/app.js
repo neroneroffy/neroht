@@ -6,14 +6,20 @@
  */
 
 import express from 'express'
+const compression = require('compression')
 import serverRender from './render'
 import { matchRoutes } from 'react-router-config'
 import routes from '../routes'
-import serverStore from "../store/serverStore";
+import serverStore from "../store/serverStore"
 import proxy from 'express-http-proxy'
+
+const isDev = process.env.NODE_ENV === 'development'
 const app = express()
 
 app.use(express.static('public'))
+if (!isDev) {
+  app.use(compression())
+}
 
 app.use('/api', proxy('http://127.0.0.1:3000', {
   proxyReqPathResolver: function (req) {
