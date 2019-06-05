@@ -106,10 +106,25 @@ class MessageComponent extends React.Component {
             :
             messageData.map(v => <div className="comment-item" key={v.createtime}>
                 <div className="comment-top">
-                  <span>{v.nickName}</span>
-                  <span>{moment(v.createtime).format('YYYY-MM-DD HH:mm:ss')}</span>
+                  <span className="nick-name">{v.nickName}</span>
+                  <span className="time">{moment(v.createtime).format('YYYY-MM-DD HH:mm:ss')}</span>
                 </div>
                 <div className="content">{v.content}</div>
+              {
+                v.replyContent &&
+                <div className="reply">
+                  <div className="comment-top reply-top">
+                    <span className="nick-name">
+                      Nero
+                      <span className="role">管理员</span>
+                      <span>回复：</span>
+                    </span>
+                    <span>{moment(v.replyTime).format('YYYY-MM-DD HH:mm:ss')}</span>
+                  </div>
+                  <div className="reply-content">{v.replyContent}</div>
+                </div>
+              }
+
               </div>
             )
         }

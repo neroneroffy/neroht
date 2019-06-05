@@ -1,17 +1,50 @@
 @import "../../../assets/common-style.less";
 .message {
+  .message-textarea {
+    position: relative;
+    .action {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+    }
+  }
   .ant-form-item {
     margin-bottom: 0;
   }
   .comment-list {
     margin-top: @padding-large;
+    padding-top: @padding-large;
+    border-top: 1px solid @border-color-base;
     .comment-item {
+      margin-bottom: @padding-large;
+      padding-bottom: @padding-base;
+
       .comment-top {
         margin-bottom: @padding-base;
+        display: flex;
+        justify-content: space-between;
+        .time {
+          margin-right: @padding-base;
+        }
       }
-      margin-bottom: @padding-medium;
-      padding-bottom: @padding-base;
-      border-bottom: 1px solid @border-color-base;
+      .nick-name {
+        color: @primary-color;
+        margin-right: @padding-large;
+        .role {
+          color: @font-color-gray;
+          font-size: 12px;
+          margin: 4px;
+        }
+        & > span:nth-child(2) {
+          font-size: 12px;
+        }
+      }
+      .reply {
+        margin-top: @padding-small;
+        padding: @padding-base @padding-small;
+        background: #f5f5f5;
+        border-radius: @border-radius-base;
+      }
     }
   }
   .other-item {

@@ -7,6 +7,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import showdown from 'showdown'
+import { Spin } from 'antd'
 import Message from '../../../components/Message'
 import { getArticleDetail, clearArticleDetailData } from '../../../actions/article'
 import withStyle from "../../../utils/withStyle";
@@ -16,27 +17,42 @@ import './index.less'
 const converter = new showdown.Converter();
 
 class Index extends React.Component {
-
-  componentDidMount() {
+  state = {
+    loading: false
+  }
+  async componentDidMount() {
     const { params } = this.props.match
     const { clearArticleDetailData } = this.props
+
     clearArticleDetailData()
-    this.props.getArticleDetail(params.id)
+    this.setState({loading: true})
+    await this.props.getArticleDetail(params.id)
+    this.setState({loading: false})
   }
 
   render() {
     const { detailData } = this.props
+    const { loading } = this.state
     let html = converter.makeHtml(detailData.content)
     if (html) {
       html = html.replace('/%%script%%/g', '<script').replace('/%%/script%%/g', '</script')
     }
     return <div className="artical-detail">
-      <div className="top">
-        <h1>{detailData.title}</h1>
-        <div className="author">{detailData.author}</div>
+      <div>
+        {
+          loading ?
+            <Spin/>
+            :
+            <>
+              <div className="top">
+                <h1>{detailData.title}</h1>
+                <div className="author">{detailData.author}</div>
+              </div>
+              <div className="md-content" dangerouslySetInnerHTML={{__html: html}}></div>
+              <Message/>
+            </>
+        }
       </div>
-      <div className="md-content" dangerouslySetInnerHTML={{__html: html}}></div>
-      <Message/>
     </div>
   }
 }
