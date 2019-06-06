@@ -5,7 +5,6 @@
  *
  */
 import * as ActionType from '../actions/message'
-import {CLEAR_MESSAGE_DATA} from "../actions/message";
 
 const initialState = {
   list: [],

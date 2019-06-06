@@ -7,10 +7,11 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import showdown from 'showdown'
-import { Spin } from 'antd'
 import Message from '../../../components/Message'
 import { getArticleDetail, clearArticleDetailData } from '../../../actions/article'
 import withStyle from "../../../utils/withStyle";
+import Spin from '../../../components/Spin'
+import ScrollToTop from '../../../components/ScrollToTop'
 import style from './index.less'
 import './index.less'
 
@@ -37,11 +38,14 @@ class Index extends React.Component {
     if (html) {
       html = html.replace('/%%script%%/g', '<script').replace('/%%/script%%/g', '</script')
     }
-    return <div className="artical-detail">
+    return <div id="artical-detail">
+      <ScrollToTop element={"artical-detail"}/>
       <div>
         {
           loading ?
-            <Spin/>
+            <div className="spining">
+              <Spin text={"加载中"}/>
+            </div>
             :
             <>
               <div className="top">
@@ -68,7 +72,6 @@ const mapDispatch = {
 }
 const ArticalDetail = connect(mapState, mapDispatch)(withStyle(Index, style))
 ArticalDetail.loadData = (store, id) => {
-  console.log('文章详情id', id)
   return store.dispatch(getArticleDetail(id))
 }
 export default ArticalDetail

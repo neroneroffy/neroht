@@ -6,15 +6,17 @@
  */
 import React from 'react'
 import { connect } from 'react-redux'
-import { getArticleList } from '../../actions/article'
+import { getArticleList, clearArticleListData } from '../../actions/article'
 import { getTagsList } from '../../actions/tags'
-import { Pagination, Tag } from 'antd'
+import { Tag, Icon } from 'antd'
 import { Link } from 'react-router-dom'
 import withStyle from '../../utils/withStyle'
 import './style/index.less'
 import style from './style/index.less'
 import moment from 'moment'
 import { PAGE, SIZE } from '../../constants'
+import ScrollLoadPage from '../../components/ScrollLoadPage'
+import ScrollToTop from '../../components/ScrollToTop'
 
 const { CheckableTag } = Tag;
 
@@ -25,8 +27,7 @@ class Index extends React.Component {
     selectedTags: [],
   }
   componentDidMount() {
-    const { getArticleList, articleList, getTagsList, tagsList } = this.props
-    const { page, size } = this.state
+    const { articleList, getTagsList, tagsList } = this.props
     if (!tagsList.length) {
       getTagsList()
     }
@@ -39,14 +40,18 @@ class Index extends React.Component {
     const { page, size, selectedTags } = this.state
     getArticleList({ page, size, tags: selectedTags.join(',') })
   }
-  changePage = currentPage => {
-      this.setState({
-        page: currentPage - 1
-      }, () => this.loadArticleList())
-    }
+  onLoadData = () => {
+    this.setState({
+      page: this.state.page + 1
+    }, () => this.loadArticleList())
+  }
   onTagChange = id => {
+    this.props.clearArticleListData()
     if (id === 'all') {
-      this.setState({ selectedTags: [] }, () => this.loadArticleList())
+      this.setState({
+        selectedTags: [],
+        page: PAGE
+      }, () => this.loadArticleList())
       return
     }
     let selectedTags = JSON.parse(JSON.stringify(this.state.selectedTags))
@@ -55,19 +60,20 @@ class Index extends React.Component {
     } else {
       selectedTags = selectedTags.filter(v => v !== id)
     }
-    this.setState({ selectedTags }, () => this.loadArticleList())
+    this.setState({ selectedTags, page: PAGE }, () => this.loadArticleList())
   }
 
   render() {
-    const { articleList, total, tagsList } = this.props
-    const { selectedTags } = this.state
+    const { articleList, total, tagsList, loading } = this.props
+    const { selectedTags, page } = this.state
       return <div id="article">
+        <ScrollToTop element={"article"}/>
         <div className="banner">
           <div className="banner-inner">
             <span className="icon-website-symbol"></span>
           </div>
         </div>
-        <div className="artical-inner">
+        <div className="article-inner">
           <div className="top">
             <h2>最新文章</h2>
             <div className="tags">
@@ -87,27 +93,27 @@ class Index extends React.Component {
               }
             </div>
           </div>
-          {
-            articleList.map(v => <div className="article-item" key={v.id}>
-              <Link to={`/article/article-detail/${v.id}`}>
-                <div className="top">
-                  <h2>{v.title}</h2>
-                  <div className="right">
-                    <span>{v.author}</span>
-                    <span>{moment(v.createtime).format('YYYY-MM-DD')}</span>
+          <ScrollLoadPage
+            loadMore={this.onLoadData}
+            currentPage={page}
+            hasMore={total > articleList.length}
+            loading={loading}
+          >
+            {
+              articleList.map(v => <div className="article-item" key={v.id}>
+                <Link to={`/article/article-detail/${v.id}`}>
+                  <div className="top">
+                    <h2>{v.title}</h2>
+                    <div className="right">
+                      <span>{v.author}</span>
+                      <span>{moment(v.createtime).format('YYYY-MM-DD')}</span>
+                    </div>
                   </div>
-                </div>
-                <div className="brief">{v.brief}</div>
-              </Link>
-            </div>)
-          }
-          <div className="pagination">
-            <Pagination
-              total={total}
-              onChange={this.changePage}
-              simple={true}
-            />
-          </div>
+                  <div className="brief">{v.brief}</div>
+                </Link>
+              </div>)
+            }
+          </ScrollLoadPage>
         </div>
       </div>
     }
@@ -115,16 +121,18 @@ class Index extends React.Component {
 
 
 const mapState = state => {
-  const { article, tags } = state
+  const { article, tags, globalLoading: { loading } } = state
   return {
     articleList: article.list,
     total: article.total,
     tagsList: tags.list,
+    loading,
   }
 }
 const mapDispatch = {
   getArticleList,
-  getTagsList
+  getTagsList,
+  clearArticleListData,
 }
 
 const Article = connect(mapState, mapDispatch)(withStyle(Index, style))

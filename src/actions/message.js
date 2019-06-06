@@ -25,9 +25,14 @@ const actionMessageData = data => ({
   type: GET_MESSAGE_DATA_SUCCESS,
   data
 })
-export const getMessageData = params => dispatch => {
+export const getMessageData = params => (dispatch, getState) => {
   return axios.get(`${API_SERVER}/comment/list`, { params }).then(res => {
-    dispatch(actionMessageData(res.data.data))
+    const { list } = getState().message
+    const data = {
+      list: list.concat(res.data.data.list),
+      total: res.data.data.total
+    }
+    dispatch(actionMessageData(data))
     return Promise.resolve(res.data)
   }).catch(e => {
     return Promise.reject(e.message)

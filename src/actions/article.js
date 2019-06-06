@@ -12,12 +12,16 @@ const actionArticleList = data => ({
   type: GET_ARTICLE_LIST_SUCCESS,
   data
 })
-export const getArticleList = ({ page, size, tags }) => dispatch => {
-  console.log('articleList 请求的url', API_SERVER)
+export const getArticleList = ({ page, size, tags }) => (dispatch, getState) => {
   return axios.get(`${API_SERVER}/article/list`, {
     params: { page, size, tags }
   }).then(res => {
-    dispatch(actionArticleList(res.data.data))
+    const { list } = getState().article
+    const data = {
+      list: list.concat(res.data.data.list),
+      total: res.data.data.total
+    }
+    dispatch(actionArticleList(data))
   }).catch(e => {
     console.log('err-message',e.message);
   })
@@ -41,4 +45,8 @@ export const getArticleDetail = id => dispatch => {
 export const CLEAR_ARTICLE_DETAIL = 'CLEAR_ARTICLE_DETAIL'
 export const clearArticleDetailData = () => dispatch => dispatch({
   type: CLEAR_ARTICLE_DETAIL,
+})
+export const CLEAR_ARTICLE_LIST = 'CLEAR_ARTICLE_LIST'
+export const clearArticleListData = () => dispatch => dispatch({
+  type: CLEAR_ARTICLE_LIST,
 })

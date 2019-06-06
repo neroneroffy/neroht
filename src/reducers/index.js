@@ -8,11 +8,13 @@ import { combineReducers } from 'redux'
 import { article } from './article'
 import { tags } from './tags'
 import { message } from './message'
+import { globalLoading } from './loading'
 
 const rootReducer = combineReducers({
   article,
   tags,
   message,
+  globalLoading,
 })
 
 export default rootReducer

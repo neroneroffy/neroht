@@ -8,6 +8,7 @@ import * as ActionType from '../actions/article'
 
 const initialState = {
   list: [],
+  total: 0,
   detailData: ''
 }
 export function article(state = initialState, action) {
@@ -21,6 +22,11 @@ export function article(state = initialState, action) {
       return {
         ...state,
         detailData: action.data,
+      }
+    case ActionType.CLEAR_ARTICLE_LIST:
+      return {
+        ...state,
+        list: [],
       }
     case ActionType.CLEAR_ARTICLE_DETAIL:
       return {

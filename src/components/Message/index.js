@@ -6,13 +6,14 @@
  */
 import React from 'react'
 import { connect } from 'react-redux'
-import { Form, Input, Button, notification, Pagination  } from 'antd'
+import { Form, Input, Button, notification  } from 'antd'
 import { withRouter } from 'react-router-dom'
 import styles from './style/index.less'
 import withStyle from '../../utils/withStyle'
 import { postMessageData, getMessageData, clearMessageData } from '../../actions/message'
 import moment from 'moment'
 import { PAGE, SIZE } from '../../constants'
+import ScrollLoadPage from '../ScrollLoadPage'
 
 const { TextArea } = Input;
 const FormItem = Form.Item
@@ -24,14 +25,19 @@ class MessageComponent extends React.Component {
   }
   componentDidMount() {
     this.props.clearMessageData()
-    this.onLoadData()
+    this.onLoadMessageList()
   }
-  onLoadData = async () => {
-    const { page, size } = this.state
+  onLoadData = () => {
+    this.setState({
+      page: this.state.page + 1
+    }, this.onLoadMessageList)
+  }
+  onLoadMessageList = async () => {
     const { getMessageData, match: { params: { id } } } = this.props
+    const { page, size } = this.state
     const res = await getMessageData({ articleId: id, page, size })
     if (!res.result) {
-      notification.warn({ message: '请求评论列表失败，请稍后再试' })
+      notification.warn({ message: '请求留言列表失败，请稍后再试' })
     }
   }
   onSubmit = () => {
@@ -41,21 +47,20 @@ class MessageComponent extends React.Component {
       const { content, nickName, email } = values
       const res = await postMessageData({ content, nickName, email, articleId: id })
       if (res.result) {
+        notification.success({ message: '留言成功', placement: 'bottomRight' })
         resetFields()
+        this.props.clearMessageData()
         this.setState({
           page: 0
-        }, () => this.onLoadData())
+        }, this.onLoadMessageList)
       }
     })
   }
-  changePage = currentPage => {
-    this.setState({
-      page: currentPage - 1
-    }, () => this.onLoadData())
-  }
+
   render() {
     const { getFieldDecorator, getFieldValue } = this.props.form
-    const { messageData, total } = this.props
+    const { messageData, total, loading } = this.props
+
     const { page } = this.state
     return <div className="message">
       <Form className="message-textarea">
@@ -104,50 +109,57 @@ class MessageComponent extends React.Component {
               暂无数据
             </div>
             :
-            messageData.map(v => <div className="comment-item" key={v.createtime}>
-                <div className="comment-top">
-                  <span className="nick-name">{v.nickName}</span>
-                  <span className="time">{moment(v.createtime).format('YYYY-MM-DD HH:mm:ss')}</span>
-                </div>
-                <div className="content">{v.content}</div>
+            <ScrollLoadPage
+              loadMore={this.onLoadData}
+              currentPage={page}
+              hasMore={total > messageData.length}
+              loading={loading}
+            >
               {
-                v.replyContent &&
-                <div className="reply">
-                  <div className="comment-top reply-top">
+                messageData.map(v => <div className="comment-item" key={v.createtime}>
+                  <div className="comment-top">
+                    <span className="nick-name">{v.nickName}</span>
+                    <span className="time">{moment(v.createtime).format('YYYY-MM-DD HH:mm:ss')}</span>
+                  </div>
+                  <div className="content">{v.content}</div>
+                  {
+                    v.replyContent &&
+                    <div className="reply">
+                      <div className="comment-top reply-top">
                     <span className="nick-name">
                       Nero
                       <span className="role">管理员</span>
                       <span>回复：</span>
                     </span>
-                    <span>{moment(v.replyTime).format('YYYY-MM-DD HH:mm:ss')}</span>
-                  </div>
-                  <div className="reply-content">{v.replyContent}</div>
-                </div>
+                        <span>{moment(v.replyTime).format('YYYY-MM-DD HH:mm:ss')}</span>
+                      </div>
+                      <div className="reply-content">{v.replyContent}</div>
+                    </div>
+                  }
+                </div>)
               }
-
-              </div>
-            )
+            </ScrollLoadPage>
         }
       </div>
-      {
+{/*      {
         total > 10 &&
         <div className="pagination">
           <Pagination
             total={total}
             current={page + 1}
-            onChange={this.changePage}
             simple={true}
           />
         </div>
-      }
+      }*/}
     </div>
   }
 }
 const mapStateToProps = state => {
-  const { message } = state
+  const { message, globalLoading: { loading } } = state
   return {
     messageData: message.list,
-    total: message.total
+    total: message.total,
+    loading
   }
 }
 

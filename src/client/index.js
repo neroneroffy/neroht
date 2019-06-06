@@ -11,6 +11,7 @@ import { AppContainer } from 'react-hot-loader'
 import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import clientStore from '../store/clientStore'
+import '../interceptors'
 
 const root = document.getElementById('root')
 if (module.hot) {
