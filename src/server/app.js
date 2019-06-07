@@ -54,18 +54,6 @@ app.get('*', (req, res) => {
       })
       promises.push(promise)
     }
-    if (item.route.component.loadData) {
-      const { loadData } = item.route.component
-      const promise = new Promise((resolve, reject) => {
-        if (id) {
-          loadData(store, id).then(resolve).catch(resolve)
-        } else {
-          loadData(store).then(resolve).catch(resolve)
-        }
-      })
-      promises.push(promise)
-    }
-
   }
   Promise.all(promises).then(() => {
     res.send(serverRender(req, store, context))
