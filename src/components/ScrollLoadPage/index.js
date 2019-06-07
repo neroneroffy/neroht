@@ -14,11 +14,11 @@ class ScrollLoadPage extends React.Component {
   }
   scroll = () => {
     if (document) {
-      const { hasMore } = this.props
+      const { hasMore, loading } = this.props
       const totalHeight = document.body.scrollHeight;
       const scrolledHeight = document.documentElement.scrollTop;
       const screenHeight = document.body.clientHeight;
-      if (scrolledHeight + screenHeight === totalHeight && screenHeight !== 0 && hasMore) {
+      if (scrolledHeight + screenHeight === totalHeight && screenHeight !== 0 && hasMore && !loading) {
         this.props.loadMore()
       }
     }
@@ -29,7 +29,7 @@ class ScrollLoadPage extends React.Component {
   render() {
     const { children, loading, hasMore } = this.props
     return <div>
-      {this.props.children}
+      {children}
       <div className="pagination-bottom">
         {
           hasMore ?
