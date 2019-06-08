@@ -6,7 +6,7 @@
  */
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Menu } from 'antd';
+import { Menu, Icon, Popover, Dropdown } from 'antd';
 import './style/index.less'
 import headerStyles from './style/index.less'
 import withStyle from '../../utils/withStyle'
@@ -37,35 +37,43 @@ class Header extends React.Component {
         });
     }
     render() {
+      const menu = direction => <Menu
+        onClick={this.handleClick}
+        selectedKeys={[this.state.current]}
+        mode={direction}
+      >
+        <Menu.Item key="/">
+          <Link to='/'>首页</Link>
+        </Menu.Item>
+        <Menu.Item key="/article">
+          <Link to='/article'>文章</Link>
+        </Menu.Item>
+        <Menu.Item key="/work">
+          <Link to='/work'>作品</Link>
+        </Menu.Item>
+        <Menu.Item key="/about">
+          <Link to='/about'>关于</Link>
+        </Menu.Item>
+      </Menu>
       return (<div id="header">
             <div className="header-height"></div>
             <div className="header-fixed" ref="header">
-                <div className="header-inner">
+                <div className="inner">
                   <Link to='/'>
                     <div className="logo">
                         <span className="icon-logo"></span>
                     </div>
                   </Link>
-                    <div className="menu">
-                        <Menu
-                            onClick={this.handleClick}
-                            selectedKeys={[this.state.current]}
-                            mode="horizontal"
-                        >
-                            <Menu.Item key="/">
-                                <Link to='/'>首页</Link>
-                            </Menu.Item>
-                            <Menu.Item key="/article">
-                                <Link to='/article'>文章</Link>
-                            </Menu.Item>
-                          <Menu.Item key="/work">
-                            <Link to='/work'>作品</Link>
-                          </Menu.Item>
-                          <Menu.Item key="/about">
-                              <Link to='/about'>关于</Link>
-                          </Menu.Item>
-                        </Menu>
-                    </div>
+                  <div className="menu">
+                    <Dropdown placement="bottomRight" overlay={menu('inline')} trigger={["click"]}>
+                      <span className="mobile">
+                        <Icon type="dash" />
+                      </span>
+                    </Dropdown>
+                    <span className="pc">
+                      {menu('horizontal')}
+                    </span>
+                  </div>
                 </div>
             </div>
         </div>)

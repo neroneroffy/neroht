@@ -17,6 +17,7 @@ import moment from 'moment'
 import { PAGE, SIZE } from '../../constants'
 import ScrollLoadPage from '../../components/ScrollLoadPage'
 import ScrollToTop from '../../components/ScrollToTop'
+import articleBg from '../../assets/img/artical.jpg'
 
 const { CheckableTag } = Tag;
 
@@ -69,11 +70,12 @@ class Index extends React.Component {
       return <div id="article">
         <ScrollToTop element={"article"}/>
         <div className="banner">
-          <div className="banner-inner">
+          <div className="inner">
             <span className="icon-website-symbol"></span>
           </div>
+          <img src={articleBg} alt=""/>
         </div>
-        <div className="article-inner">
+        <div className="inner">
           <div className="top">
             <h2>最新文章</h2>
             <div className="tags">

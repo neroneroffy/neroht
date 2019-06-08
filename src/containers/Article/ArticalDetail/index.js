@@ -40,7 +40,7 @@ class Index extends React.Component {
     }
     return <div id="artical-detail">
       <ScrollToTop element={"artical-detail"}/>
-      <div>
+      <div className="inner">
         {
           loading ?
             <div className="spining">

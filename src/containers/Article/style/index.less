@@ -1,24 +1,29 @@
 @import "../../../assets/common-style.less";
 #article {
   .banner {
-    height: 700px;
+    height: 300px;
     font-size: @font-size-title;
     color: @font-color-light;
     background-color: #110801;
-    background-image: url("../../../assets/img/artical.jpg");
-    .banner-inner {
+    position: relative;
+    overflow: hidden;
+    img {
+      width: 100%;
+    }
+    .inner {
       .container-center;
       text-align: center;
-      line-height: 700px;
-      font-size: 400px;
+      line-height: 300px;
+      font-size: 180px;
+      position: absolute;
       span {
         text-shadow: 2px 2px 0px #1d0e01;
-        margin-top: 30px;
+        margin-top: 150px;
       }
     }
   }
 
-  .article-inner {
+  .inner {
     .container-center;
     margin: 50px auto;
     .article-list {
@@ -71,3 +76,4 @@
   }
 
 }
+

@@ -12,7 +12,7 @@ import './style/index.less'
 class Footer extends React.Component {
   render() {
       return <div id="foot">
-        <div className="foot-inner">
+        <div className="inner">
           <span>京ICP备18056340号-1</span>
         </div>
       </div>

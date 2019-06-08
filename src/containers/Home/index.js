@@ -22,7 +22,7 @@ class Home extends React.Component {
         return <div id="home">
 
             <div className="banner">
-                <div className="banner-inner">
+                <div className="inner">
                     <span className="icon-website-symbol"></span>
                 </div>
             </div>

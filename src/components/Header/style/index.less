@@ -14,17 +14,26 @@
     line-height: 56px;
     transition: all ease-in .3s;
     background-color: rgba(22,14,15,1);
-    .header-inner {
+    .inner {
       .container-center;
       .logo {
         color: @font-color-light;
         font-size: 30px;
         float: left;
       }
+      .mobile {
+        display: none;
+        align-items: center;
+        color: @font-color-light;
+        line-height: 56px;
+        font-size: 28px;
+        height: 56px;
+        margin-top: -8px;
+        padding-left: @padding-large;
+      }
       .menu {
         float: right;
         margin-top: 8px;
-        padding-right: @padding-large;
         .ant-menu {
           background: none;
           a {
@@ -38,5 +47,21 @@
       }
     }
 
+  }
+}
+@media screen and (min-width: 360px)  {
+
+}
+
+@media screen and (min-width: 480px)  {
+
+}
+
+@media screen and (max-width: 640px)  {
+  .mobile {
+    display: block !important;
+  }
+  .pc {
+    display: none !important;
   }
 }
