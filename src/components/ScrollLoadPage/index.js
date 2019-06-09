@@ -16,7 +16,10 @@ class ScrollLoadPage extends React.Component {
     if (document) {
       const { hasMore, loading } = this.props
       const totalHeight = document.body.scrollHeight;
-      const scrolledHeight = document.documentElement.scrollTop;
+      let scrolledHeight = document.body.scrollTop;
+      if (totalHeight > 0 && scrolledHeight === 0) {
+        scrolledHeight = document.documentElement.scrollTop;
+      }
       const screenHeight = document.body.clientHeight;
       if (scrolledHeight + screenHeight === totalHeight && screenHeight !== 0 && hasMore && !loading) {
         this.props.loadMore()

@@ -1,24 +1,29 @@
 @import "../../../assets/common-style.less";
 #article {
   .banner {
-    height: 300px;
+    height: 400px;
     font-size: @font-size-title;
     color: @font-color-light;
     background-color: #110801;
     position: relative;
     overflow: hidden;
-    img {
+    & > img {
+      position: absolute;
+      top: -200px;
+      left: 0;
       width: 100%;
     }
     .inner {
       .container-center;
+      line-height: 400px;
+      font-size: 0;
+      position: relative;
       text-align: center;
-      line-height: 300px;
-      font-size: 180px;
-      position: absolute;
-      span {
-        text-shadow: 2px 2px 0px #1d0e01;
-        margin-top: 150px;
+      margin: 0 auto !important;
+      img {
+        position: relative;
+        z-index: 100;
+        width: 40%;
       }
     }
   }
@@ -36,9 +41,11 @@
       .top {
         display: flex;
         justify-content: space-between;
-        align-items: center;
+        align-items: flex-start;
         margin-bottom: @padding-small;
+        flex: 1 1 auto;
         h2 {
+          width: 50%;
           margin: 0;
           transition: all .3s ease-in;
         }
@@ -63,9 +70,8 @@
       }
       &:hover {
         h2,.brief {
-          color: @primary-color;
+          color: @font-color-gray;
         }
-
       }
     }
     .pagination {
@@ -74,6 +80,107 @@
       justify-content: flex-end;
     }
   }
-
+}
+@media screen and (min-width: 360px)  {
+  #article {
+    .banner {
+      height: 200px;
+      & > img {
+        position: absolute;
+        top: 0px;
+      }
+      .inner {
+        line-height: 250px;
+        img {
+          position: relative;
+          z-index: 100;
+          width: 48%;
+        }
+      }
+    }
+    .inner {
+      margin-top: @padding-medium;
+      .top {
+        margin-bottom: @padding-large;
+        h2 {
+          margin-top: 16px;
+        }
+      }
+      .article-item {
+        margin-top: @padding-medium;
+        .top {
+          margin-bottom: 8px;
+          h2 {
+            font-size: 16px;
+            width: 70%;
+          }
+        }
+        &:hover {
+          h2,.brief {
+            color: unset;
+          }
+        }
+      }
+    }
+  }
 }
 
+@media screen and (min-width: 480px)  {
+  #article {
+    .banner {
+      height: 230px;
+      & > img {
+        position: absolute;
+        top: 0px;
+      }
+      .inner {
+        line-height: 280px;
+        img {
+          position: relative;
+          z-index: 100;
+          width: 40%;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 640px)  {
+  #article {
+    .banner {
+      height: 240px;
+      & > img {
+        position: absolute;
+        top: 0px;
+      }
+      .inner {
+        line-height: 290px;
+        img {
+          position: relative;
+          z-index: 100;
+          width: 32%;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1080px)  {
+  #article {
+    .banner {
+      height: 400px;
+      & > img {
+        position: absolute;
+        top: 0px;
+      }
+      .inner {
+        line-height: 460px;
+        img {
+          position: relative;
+          z-index: 100;
+          width: 40%;
+        }
+      }
+    }
+  }
+}

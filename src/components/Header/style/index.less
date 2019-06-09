@@ -18,8 +18,11 @@
       .container-center;
       .logo {
         color: @font-color-light;
-        font-size: 30px;
+        font-size: 0;
         float: left;
+        img {
+          height: 40px;
+        }
       }
       .mobile {
         display: none;
@@ -43,14 +46,26 @@
         .ant-menu-horizontal {
           border-bottom: none;
         }
-
       }
     }
 
   }
 }
+.header-menu-drawer {
+  .ant-drawer-body {
+    padding: 0!important;
+  }
+}
 @media screen and (min-width: 360px)  {
-
+  #header {
+    .header-fixed {
+      .inner {
+        .logo img {
+          height: 26px;
+        }
+      }
+    }
+  }
 }
 
 @media screen and (min-width: 480px)  {
@@ -60,6 +75,7 @@
 @media screen and (max-width: 640px)  {
   .mobile {
     display: block !important;
+    font-size: 26px;
   }
   .pc {
     display: none !important;

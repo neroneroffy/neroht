@@ -21,20 +21,20 @@ const AboutLazy = () => <Suspense fallback={<div>加载中，请稍后...</div>}
 </Suspense>*/
 
 export default [
-  {
+/*  {
     path: '/',
     component: Home,
     // loadData: Home.loadData,
     exact: true,
-  },
+  },*/
   {
-    path: '/article',
+    path: '/',
     component: Article,
     loadData: Article.loadData,
     exact: true,
   },
   {
-    path: '/article/article-detail/:id',
+    path: '/article-detail/:id',
     component: ArticalDetail,
     loadData: (store, id) => multiLoadData(store, id)(ArticalDetail, Message)
   },

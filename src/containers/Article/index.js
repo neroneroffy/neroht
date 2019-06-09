@@ -18,7 +18,8 @@ import { PAGE, SIZE } from '../../constants'
 import ScrollLoadPage from '../../components/ScrollLoadPage'
 import ScrollToTop from '../../components/ScrollToTop'
 import articleBg from '../../assets/img/artical.jpg'
-
+import logo from '../../assets/img/logo3.png'
+moment.locale('zh-cn');
 const { CheckableTag } = Tag;
 
 class Index extends React.Component {
@@ -71,7 +72,7 @@ class Index extends React.Component {
         <ScrollToTop element={"article"}/>
         <div className="banner">
           <div className="inner">
-            <span className="icon-website-symbol"></span>
+            <img src={logo} alt=""/>
           </div>
           <img src={articleBg} alt=""/>
         </div>
@@ -103,12 +104,12 @@ class Index extends React.Component {
           >
             {
               articleList.map(v => <div className="article-item" key={v.id}>
-                <Link to={`/article/article-detail/${v.id}`}>
+                <Link to={`/article-detail/${v.id}`}>
                   <div className="top">
                     <h2>{v.title}</h2>
                     <div className="right">
-                      <span>{v.author}</span>
-                      <span>{moment(v.createtime).format('YYYY-MM-DD')}</span>
+                      {/*<span>{v.author}</span>*/}
+                      <span>{moment(v.createtime).fromNow()}</span>
                     </div>
                   </div>
                   <div className="brief">{v.brief}</div>

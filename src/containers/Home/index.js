@@ -8,6 +8,7 @@ import React from 'react'
 import './style/index.less'
 import homeStyle from './style/index.less'
 import withStyle from '../../utils/withStyle'
+import { Redirect } from 'react-router-dom'
 import showdown from 'showdown'
 // import websiteSymbol from '../../assets/img/website-symbol.png'
 import { Icon } from 'antd'
@@ -19,7 +20,8 @@ class Home extends React.Component {
 
     }
     render() {
-        return <div id="home">
+        return <Redirect to={'/article'}/>
+/*        return <div id="home">
 
             <div className="banner">
                 <div className="inner">
@@ -32,7 +34,7 @@ class Home extends React.Component {
                 </div>
             </section>
 
-        </div>
+        </div>*/
     }
 }
 export default withStyle(Home, homeStyle)

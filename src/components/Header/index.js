@@ -6,20 +6,38 @@
  */
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Menu, Icon, Popover, Dropdown } from 'antd';
+import { Menu, Icon, Drawer, Dropdown } from 'antd';
 import './style/index.less'
 import headerStyles from './style/index.less'
+import logo from '../../assets/img/logo.png'
 import withStyle from '../../utils/withStyle'
 
 class Header extends React.Component {
     state = {
-        current: '/',
+      current: '/',
+      mobileMenuVisible: false,
     }
-    componentWillMount() {
+    componentDidMount() {
       const pathname = window.location.pathname
-      this.setState({
-            current: `/${pathname.split('/')[1]}`
+      if (pathname.includes('article-detail')) {
+        this.setState({
+          current: `/`
         });
+        return
+      }
+      this.setState({
+         current: `/${pathname.split('/')[1]}`
+      });
+    }
+    toggleMenu = () => {
+      this.setState({
+        mobileMenuVisible: !this.state.mobileMenuVisible,
+      })
+    }
+    menuClose = () => {
+      this.setState({
+        mobileMenuVisible: false,
+      })
     }
     handleScroll = () => {
       if (window.scrollY > 570) {
@@ -29,22 +47,45 @@ class Header extends React.Component {
       }
     }
     handleClick = (e) => {
-        this.setState({
-            current: e.key,
-        });
+      this.setState({
+          current: e.key,
+      });
+    }
+    handleMobileClick = (e) => {
+      this.toggleMenu()
+      this.setState({
+          current: e.key,
+      });
     }
     render() {
-      console.log(this.state.current);
-      const menu = direction => <Menu
+      const { mobileMenuVisible } = this.state
+      const menu = () => <Menu
         onClick={this.handleClick}
         selectedKeys={[this.state.current]}
-        mode={direction}
+        mode={"horizontal"}
       >
-        <Menu.Item key="/">
+{/*        <Menu.Item key="/">
           <Link to='/'>首页</Link>
+        </Menu.Item>*/}
+        <Menu.Item key="/">
+          <Link to='/'>文章</Link>
         </Menu.Item>
-        <Menu.Item key="/article">
-          <Link to='/article'>文章</Link>
+        <Menu.Item key="/work">
+          <Link to='/work'>作品</Link>
+        </Menu.Item>
+        <Menu.Item key="/about">
+          <Link to='/about'>关于</Link>
+        </Menu.Item>
+      </Menu>
+      const mobileMenu = () => <Menu
+        onClick={this.handleMobileClick}
+        selectedKeys={[this.state.current]}
+      >
+{/*        <Menu.Item key="/">
+          <Link to='/'>首页</Link>
+        </Menu.Item>*/}
+        <Menu.Item key="/">
+          <Link to='/'>文章</Link>
         </Menu.Item>
         <Menu.Item key="/work">
           <Link to='/work'>作品</Link>
@@ -54,26 +95,35 @@ class Header extends React.Component {
         </Menu.Item>
       </Menu>
       return (<div id="header">
-            <div className="header-height"></div>
-            <div className="header-fixed" ref="header">
-                <div className="inner">
-                  <Link to='/'>
-                    <div className="logo">
-                        <span className="icon-logo"></span>
-                    </div>
-                  </Link>
-                  <div className="menu">
-                    <Dropdown placement="bottomRight" overlay={menu('inline')} trigger={["click"]}>
-                      <span className="mobile">
-                        <Icon type="dash" />
-                      </span>
-                    </Dropdown>
-                    <span className="pc">
-                      {menu('horizontal')}
-                    </span>
-                  </div>
-                </div>
+        <div className="header-height"></div>
+        <div className="header-fixed" ref="header">
+          <div className="inner">
+            <Link to='/'>
+              <div className="logo">
+                <img src={logo} alt="logo"/>
+              </div>
+            </Link>
+            <div className="menu">
+                <span className="mobile" onClick={this.toggleMenu}>
+                  <Icon type="menu" />
+                </span>
+              <span className="pc">
+                {menu()}
+              </span>
             </div>
+          </div>
+        </div>
+        <Drawer
+          title="Basic Drawer"
+          placement="right"
+          closable={false}
+          onClose={this.menuClose}
+          visible={mobileMenuVisible}
+          className={"header-menu-drawer"}
+          width={170}
+        >
+          {mobileMenu()}
+        </Drawer>
         </div>)
     }
 }
