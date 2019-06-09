@@ -15,14 +15,11 @@ class Header extends React.Component {
     state = {
         current: '/',
     }
-    componentDidMount() {
-        this.setState({
-            current: window.location.pathname
+    componentWillMount() {
+      const pathname = window.location.pathname
+      this.setState({
+            current: `/${pathname.split('/')[1]}`
         });
-        // window.addEventListener('scroll', this.handleScroll)
-    }
-    componentWillUnmount() {
-      // window.removeEventListener('scroll')
     }
     handleScroll = () => {
       if (window.scrollY > 570) {
@@ -37,6 +34,7 @@ class Header extends React.Component {
         });
     }
     render() {
+      console.log(this.state.current);
       const menu = direction => <Menu
         onClick={this.handleClick}
         selectedKeys={[this.state.current]}

@@ -7,6 +7,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import showdown from 'showdown'
+import moment from 'moment'
 import Message from '../../../components/Message'
 import { getArticleDetail, clearArticleDetailData } from '../../../actions/article'
 import withStyle from "../../../utils/withStyle";
@@ -50,7 +51,10 @@ class Index extends React.Component {
             <>
               <div className="top">
                 <h1>{detailData.title}</h1>
-                <div className="author">{detailData.author}</div>
+                <div className="author">
+                  {detailData.author}
+                  <p>发布于 {moment(detailData.createtime).format('YYYY-MM-DD HH:MM:SS')}</p>
+                </div>
               </div>
               <div className="md-content" dangerouslySetInnerHTML={{__html: html}}></div>
               <Message/>
