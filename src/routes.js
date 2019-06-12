@@ -45,5 +45,6 @@ export default [
   {
     path: '/about',
     component: About,
+    loadData: About.loadData,
   },
 ]

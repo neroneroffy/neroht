@@ -9,12 +9,14 @@ import { article } from './article'
 import { tags } from './tags'
 import { message } from './message'
 import { globalLoading } from './loading'
+import { about } from './about'
 
 const rootReducer = combineReducers({
   article,
   tags,
   message,
   globalLoading,
+  about,
 })
 
 export default rootReducer
