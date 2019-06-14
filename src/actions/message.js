@@ -28,8 +28,14 @@ const actionMessageData = data => ({
 export const getMessageData = params => (dispatch, getState) => {
   return axios.get(`${API_SERVER}/comment/list`, { params }).then(res => {
     const { list } = getState().message
+    const nextList = res.data.data.list
+    nextList.forEach((v, i) => {
+      if (list.some((item) => item.createtime === v.createtime)) {
+        nextList.splice(i, 1)
+      }
+    })
     const data = {
-      list: list.concat(res.data.data.list),
+      list: list.concat(nextList),
       total: res.data.data.total
     }
     dispatch(actionMessageData(data))

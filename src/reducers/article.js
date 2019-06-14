@@ -31,7 +31,6 @@ export function article(state = initialState, action) {
     case ActionType.CLEAR_ARTICLE_DETAIL:
       return {
         ...state,
-        list: [],
         detailData: '',
       }
     default:

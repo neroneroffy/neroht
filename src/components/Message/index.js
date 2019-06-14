@@ -10,7 +10,7 @@ import { Form, Input, Button, notification  } from 'antd'
 import { withRouter } from 'react-router-dom'
 import styles from './style/index.less'
 import withStyle from '../../utils/withStyle'
-import { postMessageData, getMessageData, clearMessageData } from '../../actions/message'
+import { postMessageData, getMessageData } from '../../actions/message'
 import moment from 'moment'
 import { PAGE, SIZE } from '../../constants'
 import ScrollLoadPage from '../ScrollLoadPage'
@@ -23,10 +23,7 @@ class MessageComponent extends React.Component {
     page: PAGE,
     size: SIZE
   }
-  componentDidMount() {
-    this.props.clearMessageData()
-    this.onLoadMessageList()
-  }
+
   onLoadData = () => {
     this.setState({
       page: this.state.page + 1
@@ -60,7 +57,6 @@ class MessageComponent extends React.Component {
   render() {
     const { getFieldDecorator, getFieldValue } = this.props.form
     const { messageData, total, loading } = this.props
-
     const { page } = this.state
     return <div className="message">
       <Form className="message-textarea">
@@ -166,7 +162,6 @@ const mapStateToProps = state => {
 const Message = connect(mapStateToProps, {
   postMessageData,
   getMessageData,
-  clearMessageData,
 })(Form.create()(withRouter(withStyle(MessageComponent, styles))))
 Message.loadData = (store, articleId) => {
   return store.dispatch(getMessageData({ articleId, page: PAGE, size: SIZE }))
