@@ -21,7 +21,7 @@ import articleBg from '../../assets/img/artical.jpg'
 import logo from '../../assets/img/logo3.png'
 moment.locale('zh-cn');
 const { CheckableTag } = Tag;
-
+const TYPE = 'it'
 class Index extends React.Component {
   state = {
     page: PAGE,
@@ -40,7 +40,7 @@ class Index extends React.Component {
   loadArticleList = () => {
     const { getArticleList } = this.props
     const { page, size, selectedTags } = this.state
-    getArticleList({ page, size, tags: selectedTags.join(',') })
+    getArticleList({ page, size, tags: selectedTags.join(','), type: TYPE })
   }
   onLoadData = () => {
     this.setState({
@@ -140,7 +140,7 @@ const mapDispatch = {
 
 const Article = connect(mapState, mapDispatch)(withStyle(Index, style))
 Article.loadData = store => {
-  const articleList  = store.dispatch(getArticleList({ page: PAGE, size: SIZE }))
+  const articleList  = store.dispatch(getArticleList({ page: PAGE, size: SIZE, type: TYPE }))
   const tagList  = store.dispatch(getTagsList())
   const promises = [articleList, tagList]
   return Promise.all(promises)

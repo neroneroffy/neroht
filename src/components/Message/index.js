@@ -6,7 +6,7 @@
  */
 import React from 'react'
 import { connect } from 'react-redux'
-import { Form, Input, Button, notification  } from 'antd'
+import { Form, Input, Button, message } from 'antd'
 import { withRouter } from 'react-router-dom'
 import styles from './style/index.less'
 import withStyle from '../../utils/withStyle'
@@ -15,6 +15,9 @@ import moment from 'moment'
 import { PAGE, SIZE } from '../../constants'
 import ScrollLoadPage from '../ScrollLoadPage'
 
+message.config({
+  top: 80,
+});
 const { TextArea } = Input;
 const FormItem = Form.Item
 
@@ -31,7 +34,7 @@ class MessageComponent extends React.Component {
       const { content, nickName, email } = values
       const res = await postMessageData({ content, nickName, email, articleId: id })
       if (res.result) {
-        notification.success({ message: '留言成功', placement: 'bottomRight' })
+        message.success('留言成功');
         resetFields()
         this.props.clearMessageData()
         this.props.loadData(0)

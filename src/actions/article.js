@@ -12,10 +12,8 @@ const actionArticleList = data => ({
   type: GET_ARTICLE_LIST_SUCCESS,
   data
 })
-export const getArticleList = ({ page, size, tags }) => (dispatch, getState) => {
-  return axios.get(`${API_SERVER}/article/list`, {
-    params: { page, size, tags }
-  }).then(res => {
+export const getArticleList = (params) => (dispatch, getState) => {
+  return axios.get(`${API_SERVER}/article/list`, { params }).then(res => {
     const { list } = getState().article
     const data = {
       list: list.concat(res.data.data.list),
