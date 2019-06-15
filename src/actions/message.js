@@ -12,7 +12,11 @@ const actionPostMessageData = () => ({
   type: POST_MESSAGE_DATA_SUCCESS,
 })
 export const postMessageData = body => dispatch => {
-  return axios.post(`${API_SERVER}/comment/new`, body).then(res => {
+  let url = `${API_SERVER}/comment/new`
+  if (!body.articleId) {
+    url = `${API_SERVER}/about/message`
+  }
+  return axios.post(url, body).then(res => {
     dispatch(actionPostMessageData(res.data.data))
     return Promise.resolve(res.data)
   }).catch(e => {
@@ -26,14 +30,13 @@ const actionMessageData = data => ({
   data
 })
 export const getMessageData = params => (dispatch, getState) => {
-  return axios.get(`${API_SERVER}/comment/list`, { params }).then(res => {
+  let url = `${API_SERVER}/comment/list`
+  if (!params.articleId) {
+    url = `${API_SERVER}/about/message`
+  }
+  return axios.get(url, { params }).then(res => {
     const { list } = getState().message
     const nextList = res.data.data.list
-    nextList.forEach((v, i) => {
-      if (list.some((item) => item.createtime === v.createtime)) {
-        nextList.splice(i, 1)
-      }
-    })
     const data = {
       list: list.concat(nextList),
       total: res.data.data.total

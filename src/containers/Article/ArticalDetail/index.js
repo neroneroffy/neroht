@@ -17,12 +17,15 @@ import ScrollToTop from '../../../components/ScrollToTop'
 import style from './index.less'
 import { PAGE, SIZE } from '../../../constants'
 import './index.less'
+import {notification} from "antd";
 
 const converter = new showdown.Converter();
 
 class Index extends React.Component {
   state = {
-    loading: false
+    loading: false,
+    page: PAGE,
+    size: SIZE,
   }
   async componentDidMount() {
     const { params } = this.props.match
@@ -41,8 +44,22 @@ class Index extends React.Component {
     this.props.clearArticleDetailData()
 
   }
+  onLoadData = currentPage => {
+    this.setState({
+      page: currentPage === 0 ? 0 : this.state.page + 1
+    }, this.onLoadMessageList)
+  }
+  onLoadMessageList = async () => {
+    const { getMessageData, match: { params: { id } } } = this.props
+    const { page, size } = this.state
+    const res = await getMessageData({ articleId: id, page, size })
+    if (!res.result) {
+      notification.warn({ message: '请求留言列表失败，请稍后再试' })
+    }
+  }
+
   render() {
-    const { detailData } = this.props
+    const { detailData, messageData, total } = this.props
     const { loading } = this.state
     let html = converter.makeHtml(detailData.content)
     if (html) {
@@ -66,7 +83,7 @@ class Index extends React.Component {
                 </div>
               </div>
               <div className="md-content" dangerouslySetInnerHTML={{__html: html}}></div>
-              <Message/>
+              <Message messageData={messageData} total={total} loadData={this.onLoadData}/>
             </>
         }
       </div>
