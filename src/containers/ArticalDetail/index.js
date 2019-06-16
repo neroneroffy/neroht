@@ -8,14 +8,15 @@ import React from 'react'
 import { connect } from 'react-redux'
 import showdown from 'showdown'
 import moment from 'moment'
-import Message from '../../../components/Message'
-import { getArticleDetail, clearArticleDetailData } from '../../../actions/article'
-import { getMessageData, clearMessageData } from '../../../actions/message'
-import withStyle from "../../../utils/withStyle";
-import Spin from '../../../components/Spin'
-import ScrollToTop from '../../../components/ScrollToTop'
+import Message from '../../components/Message/index'
+import { getArticleDetail, clearArticleDetailData } from '../../actions/article'
+import { getMessageData, clearMessageData } from '../../actions/message'
+import withStyle from "../../utils/withStyle";
+import Spin from '../../components/Spin/index'
+import ScrollToTop from '../../components/ScrollToTop/index'
 import style from './index.less'
-import { PAGE, SIZE } from '../../../constants'
+import { PAGE, SIZE } from '../../constants/index'
+import { Helmet } from "react-helmet"
 import './index.less'
 import {notification} from "antd";
 
@@ -28,6 +29,9 @@ class Index extends React.Component {
     size: SIZE,
   }
   async componentDidMount() {
+    if (document) {
+      document.body.scrollTop = 0
+    }
     const { params } = this.props.match
     const { getArticleDetail, detailData, getMessageData, messageData } = this.props
     this.setState({loading: true})
@@ -66,6 +70,15 @@ class Index extends React.Component {
       html = html.replace('/%%script%%/g', '<script').replace('/%%/script%%/g', '</script')
     }
     return <div id="artical-detail">
+      <Helmet>
+        <meta
+          name="keywords"
+          content="前端 web前端 React Vue node.js
+           Angular 前端开发 网站建设 IT咨询 个人网站 React服务端渲染 设计 ui设计 ps photoshop 平面设计 网页设计 前端"/>
+        <meta name="description" content="NERO的个人网站，分享前端知识与设计作品"/>
+        <title>文章详情</title>
+      </Helmet>
+
       <ScrollToTop element={"artical-detail"}/>
       <div className="inner">
         {

@@ -1,30 +1,231 @@
 @import "../../../assets/common-style.less";
 #work {
   .banner {
-    height: 700px;
+    height: 400px;
     font-size: @font-size-title;
     color: @font-color-light;
     background-color: #110801;
-    background-image: url("../../../assets/img/work-bg.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: 0 -320px;
+    & > img {
+      position: absolute;
+      top: -200px;
+      left: 0;
+      width: 100%;
+    }
     .inner {
       .container-center;
+      line-height: 400px;
+      font-size: 0;
+      position: relative;
       text-align: center;
-      line-height: 700px;
-      font-size: 400px;
-      span {
-        text-shadow: 2px 2px 0px #1d0e01;
-        margin-top: 30px;
+      margin: 0 auto !important;
+      img {
+        position: relative;
+        z-index: 100;
+        width: 40%;
+      }
+    }
+
+  }
+  .work-inner {
+    margin: 50px auto;
+    width: 980px;
+/*    .works-list:after {
+      content: '';
+      display: block;
+      height: 0;
+      clear: both;
+      zoom: 0;
+    }*/
+    .works-list {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+    .article-item {
+      margin-top: 40px;
+      cursor: pointer;
+      width: 280px;
+      background: #fff;
+      padding: @padding-small;
+      box-sizing: content-box;
+      img {
+        width: 100%;
+        display: block;
+      }
+      .top {
+        .info {
+          margin-top: @padding-small;
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-start;
+          margin-bottom: @padding-small;
+          flex: 1 1 auto;
+        }
+        h2 {
+          width: 50%;
+          font-size: 16px;
+          font-weight: normal;
+          margin: 0;
+          transition: all .3s ease-in;
+        }
+        .right {
+          color: @font-color-gray;
+          span:nth-child(1) {
+            margin-right: @padding-base;
+          }
+        }
+      }
+      .brief {
+        color: @font-color-gray;
+        overflow: hidden;
+        text-overflow:ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        /* autoprefixer: off */
+        -webkit-box-orient: vertical;
+        /* autoprefixer: on */
+        width:100%;
+        transition: all .3s ease-in;
+      }
+    }
+
+  }
+}
+@media screen and (min-width: 360px)  {
+  #work {
+    .banner {
+      height: 200px;
+      & > img {
+        position: absolute;
+        top: 0px;
+      }
+      .inner {
+        line-height: 250px;
+        img {
+          position: relative;
+          z-index: 100;
+          width: 48%;
+        }
+      }
+    }
+    .inner {
+      margin-top: @padding-medium;
+      .top {
+        margin-bottom: @padding-large;
+        h2 {
+          margin-top: 16px;
+        }
+      }
+      .work-item {
+        margin-top: @padding-medium;
+        .top {
+          margin-bottom: 8px;
+          h2 {
+            font-size: 16px;
+            width: 70%;
+          }
+        }
+        &:hover {
+          h2,.brief {
+            color: unset;
+          }
+        }
+      }
+    }
+    .work-inner {
+      width: 320px !important;
+      margin-top: 0;
+      .article-item {
+        width: 280px;
+        margin-top: 20px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+
+  }
+}
+
+@media screen and (min-width: 480px)  {
+  #work {
+    .banner {
+      height: 230px;
+      & > img {
+        position: absolute;
+        top: 0px;
+      }
+      .inner {
+        line-height: 280px;
+        img {
+          position: relative;
+          z-index: 100;
+          width: 40%;
+        }
+      }
+    }
+    .work-inner {
+      width: 480px !important;
+      .article-item {
+        width: 200px;
+        margin-left: unset;
+        margin-right: unset;
       }
     }
   }
-  .work-inner {
-    text-align: center;
-    font-size: @font-size-title;
-    font-weight: bold;
-    margin: 100px 0;
-  }
+}
 
+@media screen and (min-width: 640px)  {
+  #work {
+    .banner {
+      height: 240px;
+      & > img {
+        position: absolute;
+        top: 0px;
+      }
+      .inner {
+        line-height: 290px;
+        img {
+          position: relative;
+          z-index: 100;
+          width: 32%;
+        }
+      }
+    }
+    .work-inner {
+      width: 600px !important;
+      .article-item {
+        width: 154px;
+        padding: 12px;
+      }
+    }
+
+  }
+}
+
+@media screen and (min-width: 1080px)  {
+  #work {
+    .banner {
+      height: 400px;
+      & > img {
+        position: absolute;
+        top: 0px;
+      }
+      .inner {
+        line-height: 460px;
+        img {
+          position: relative;
+          z-index: 100;
+          width: 40%;
+        }
+      }
+    }
+    .work-inner {
+      width: 980px !important;
+      .article-item {
+        width: 280px;
+      }
+
+    }
+
+  }
 }

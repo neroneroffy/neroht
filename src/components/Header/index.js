@@ -68,10 +68,10 @@ class Header extends React.Component {
           <Link to='/'>首页</Link>
         </Menu.Item>*/}
         <Menu.Item key="/">
-          <Link to='/'>文章</Link>
+          <Link to='/'>技术文章</Link>
         </Menu.Item>
         <Menu.Item key="/work">
-          <Link to='/work'>作品</Link>
+          <Link to='/work'>设计</Link>
         </Menu.Item>
         <Menu.Item key="/about">
           <Link to='/about'>关于</Link>

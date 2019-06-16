@@ -9,7 +9,7 @@ import React, { Suspense } from 'react'
 import Home from './containers/Home'
 import Work from './containers/Work'
 import Article from './containers/Article'
-import ArticalDetail from './containers/Article/ArticalDetail'
+import ArticalDetail from './containers/ArticalDetail'
 import About from './containers/About'
 import Container from './containers/index'
 import Message from './components/Message'
@@ -41,6 +41,7 @@ export default [
   {
     path: '/work',
     component: Work,
+    loadData: Work.loadData
   },
   {
     path: '/about',

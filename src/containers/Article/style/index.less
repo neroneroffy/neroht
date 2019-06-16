@@ -31,12 +31,19 @@
   .inner {
     .container-center;
     margin: 50px auto;
-    .article-list {
-      height: 700px;
-      overflow-y: auto;
+    .tags {
+      display: flex;
+      .left {
+        width: 60px;
+        margin-right: @padding-base;
+      }
+      .ant-tag {
+        margin-bottom: @padding-base;
+      }
     }
     .article-item {
       margin-top: 40px;
+      margin-bottom: 20px;
       cursor: pointer;
       .top {
         display: flex;
@@ -47,6 +54,7 @@
         h2 {
           width: 50%;
           margin: 0;
+          font-weight: normal;
           transition: all .3s ease-in;
         }
         .right {
@@ -83,6 +91,11 @@
 }
 @media screen and (min-width: 360px)  {
   #article {
+    padding-bottom: @padding-base;
+    .article-list {
+      background: #fff;
+      padding: @padding-small;
+    }
     .banner {
       height: 200px;
       & > img {
@@ -99,9 +112,9 @@
       }
     }
     .inner {
-      margin-top: @padding-medium;
+      margin-top: @padding-small;
       .top {
-        margin-bottom: @padding-large;
+        margin-bottom: @padding-small;
         h2 {
           margin-top: 16px;
         }
