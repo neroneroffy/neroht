@@ -29,6 +29,13 @@ class Header extends React.Component {
          current: `/${pathname.split('/')[1]}`
       });
     }
+    clickLogo = () => {
+      this.setState({
+        mobileMenuVisible: false,
+        current: '/',
+      })
+
+    }
     toggleMenu = () => {
       this.setState({
         mobileMenuVisible: !this.state.mobileMenuVisible,
@@ -98,7 +105,7 @@ class Header extends React.Component {
         <div className="header-height"></div>
         <div className="header-fixed" ref="header">
           <div className="inner">
-            <Link to='/'>
+            <Link to='/' onClick={this.clickLogo}>
               <div className="logo">
                 <img src={logo} alt="logo"/>
               </div>

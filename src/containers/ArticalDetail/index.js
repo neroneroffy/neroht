@@ -30,7 +30,7 @@ class Index extends React.Component {
   }
   async componentDidMount() {
     if (document) {
-      document.body.scrollTop = 0
+      document.documentElement.scrollTop = 0
     }
     const { params } = this.props.match
     const { getArticleDetail, detailData, getMessageData, messageData } = this.props

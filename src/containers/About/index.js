@@ -11,6 +11,7 @@ import { getAbout } from '../../actions/about'
 import { getMessageData, clearMessageData } from '../../actions/message'
 import withStyle from '../../utils/withStyle'
 import Message from '../../components/Message'
+import Spin from '../../components/Spin'
 import { connect } from 'react-redux'
 import styles from './style/index.less'
 import { PAGE, SIZE } from '../../constants'
@@ -55,7 +56,7 @@ class AboutComponent extends React.Component {
   }
 
   render() {
-      const { info, messageData, total } = this.props
+      const { info, messageData, total, loading } = this.props
       let html = converter.makeHtml(info)
       return <div className="about">
         <Helmet>
@@ -63,20 +64,26 @@ class AboutComponent extends React.Component {
           <meta name="description" content="NERO的个人网站，分享前端知识与设计作品"/>
           <title>关于网站</title>
         </Helmet>
-        <div className="inner">
-            <div className="content" dangerouslySetInnerHTML={{__html: html}}></div>
-            <Message messageData={messageData} total={total} loadData={this.onLoadData}/>
-          </div>
+        {
+          loading ?
+            <Spin text={"加载中..."}/>
+            :
+            <div className="inner">
+              <div className="content" dangerouslySetInnerHTML={{__html: html}}></div>
+              <Message messageData={messageData} total={total} loadData={this.onLoadData}/>
+            </div>
+        }
       </div>
     }
 }
 const mapStateToProps = state => {
-  const { article, message } = state
+  const { article, message, globalLoading: { loading } } = state
   return {
     detailData: article.detailData,
     messageData: message.list,
     total: message.total,
-    info: state.about.information
+    info: state.about.information,
+    loading
   }
 }
 
