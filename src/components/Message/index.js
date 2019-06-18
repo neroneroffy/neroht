@@ -70,18 +70,19 @@ class MessageComponent extends React.Component {
         </FormItem>
         <FormItem
           label={"邮箱"}
-          required={true}
         >
           {
             getFieldDecorator('email', {
-              rules: [{require: true, message: '内容不能为空'}]
+              rules: [
+                {type: 'email', message: '邮箱格式不正确'},
+                ]
             })(<Input className="other-item" placeholder="不会被展示，便于接收回复通知"/>)
           }
         </FormItem>
         <div className="action">
           <Button
             type="primary"
-            disabled={!getFieldValue('content') || !getFieldValue('nickName') || !getFieldValue('email')}
+            disabled={!getFieldValue('content') || !getFieldValue('nickName')}
             onClick={this.onSubmit}
           >提交</Button>
         </div>

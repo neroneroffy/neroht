@@ -25,6 +25,7 @@ class AboutComponent extends React.Component {
   state = {
     page: PAGE,
     size: SIZE,
+    loading: false,
   }
   async componentDidMount() {
     if (document) {
@@ -34,7 +35,9 @@ class AboutComponent extends React.Component {
     const { getMessageData, messageData } = this.props
     this.props.getAbout()
     if (messageData.length === 0) {
+      this.setState({ loading: true })
       await getMessageData({ page, size })
+      this.setState({ loading: false })
     }
   }
   componentWillUnmount() {
@@ -56,7 +59,8 @@ class AboutComponent extends React.Component {
   }
 
   render() {
-      const { info, messageData, total, loading } = this.props
+      const { info, messageData, total } = this.props
+      const { loading } = this.state
       let html = converter.makeHtml(info)
       return <div className="about">
         <Helmet>
@@ -77,13 +81,12 @@ class AboutComponent extends React.Component {
     }
 }
 const mapStateToProps = state => {
-  const { article, message, globalLoading: { loading } } = state
+  const { article, message } = state
   return {
     detailData: article.detailData,
     messageData: message.list,
     total: message.total,
     info: state.about.information,
-    loading
   }
 }
 
