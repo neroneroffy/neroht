@@ -49,16 +49,10 @@ class WorkComponent extends React.Component {
   onRenderList = () => {
     const { articleList } = this.props
     const rows = Math.ceil(articleList.length / 3)
-    const newList = []
     let start = 0
     let end = 3
-    for (let i=0; i<rows; i++) {
-      newList.push(articleList.slice(start, end))
-      start = start + end
-      end += end
-    }
     return articleList.map(item => <div className="article-item" key={item.id}>
-              <Link to={`/article-detail/${item.id}`}>
+              <Link to={`/work/work-detail/${item.id}`}>
                 <div className="top">
                   <div className="cover">
                     <img src={item.cover} alt="图片找不到了"/>

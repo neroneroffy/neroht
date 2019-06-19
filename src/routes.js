@@ -39,6 +39,11 @@ export default [
     loadData: ArticalDetail.loadData
   },
   {
+    path: '/work/work-detail/:id',
+    component: ArticalDetail,
+    loadData: ArticalDetail.loadData
+  },
+  {
     path: '/work',
     component: Work,
     loadData: Work.loadData
