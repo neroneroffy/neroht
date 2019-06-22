@@ -8,7 +8,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { getArticleList, clearArticleListData } from '../../actions/article'
 import { getTagsList } from '../../actions/tags'
-import { Tag, Card } from 'antd'
+import { Tag } from 'antd'
 import { Link } from 'react-router-dom'
 import withStyle from '../../utils/withStyle'
 import './style/index.less'
@@ -17,8 +17,7 @@ import moment from 'moment'
 import { PAGE, SIZE } from '../../constants'
 import ScrollLoadPage from '../../components/ScrollLoadPage'
 import ScrollToTop from '../../components/ScrollToTop'
-import articleBg from '../../assets/img/artical.jpg'
-import logo from '../../assets/img/logo3.png'
+import banner from '../../assets/img/banner.jpg'
 import { Helmet } from "react-helmet"
 moment.locale('zh-cn');
 const { CheckableTag } = Tag;
@@ -79,10 +78,7 @@ class Index extends React.Component {
       </Helmet>
       <ScrollToTop element={"article"}/>
         <div className="banner">
-          <div className="inner">
-            <img src={logo} alt=""/>
-          </div>
-          <img src={articleBg} alt=""/>
+          <img src={banner} alt=""/>
         </div>
         <div className="inner">
             <div className={"article-list"}>

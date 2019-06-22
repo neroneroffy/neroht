@@ -70,6 +70,7 @@ class Index extends React.Component {
       html = html.replace('/%%script%%/g', '<script').replace('/%%/script%%/g', '</script')
     }
     return <div id="artical-detail">
+      <div className="about-header"></div>
       <Helmet>
         <meta
           name="keywords"

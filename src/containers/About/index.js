@@ -63,6 +63,7 @@ class AboutComponent extends React.Component {
       const { loading } = this.state
       let html = converter.makeHtml(info)
       return <div className="about">
+        <div className="about-header"></div>
         <Helmet>
           <meta name="keywords" content="前端 web前端 React Vue node.js Angular 前端开发 网站建设 IT咨询 个人网站 React服务端渲染"/>
           <meta name="description" content="NERO的个人网站，分享前端知识与设计作品"/>

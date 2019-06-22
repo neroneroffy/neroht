@@ -1,18 +1,13 @@
 @import "../../../assets/common-style.less";
 #article {
   .banner {
-    height: 400px;
+    height: 650px;
     font-size: @font-size-title;
     color: @font-color-light;
-    background-color: #110801;
+    background-color: #020202;
     position: relative;
     overflow: hidden;
-    & > img {
-      position: absolute;
-      top: -200px;
-      left: 0;
-      width: 100%;
-    }
+
     .inner {
       .container-center;
       line-height: 400px;
@@ -97,18 +92,12 @@
       padding: @padding-small;
     }
     .banner {
-      height: 200px;
-      & > img {
-        position: absolute;
-        top: 0px;
-      }
-      .inner {
-        line-height: 250px;
-        img {
-          position: relative;
-          z-index: 100;
-          width: 48%;
-        }
+      height: 220px;
+      display: flex;
+      justify-content: center;
+      img {
+        position: relative;
+        height:220px;
       }
     }
     .inner {
@@ -141,10 +130,10 @@
 @media screen and (min-width: 480px)  {
   #article {
     .banner {
-      height: 230px;
+      height: 270px;
       & > img {
-        position: absolute;
-        top: 0px;
+        top: 0;
+        height: 270px;
       }
       .inner {
         line-height: 280px;
@@ -161,10 +150,9 @@
 @media screen and (min-width: 640px)  {
   #article {
     .banner {
-      height: 240px;
+      height: 295px;
       & > img {
-        position: absolute;
-        top: 0px;
+        height: 295px;
       }
       .inner {
         line-height: 290px;
@@ -181,10 +169,9 @@
 @media screen and (min-width: 1080px)  {
   #article {
     .banner {
-      height: 400px;
+      height: 510px;
       & > img {
-        position: absolute;
-        top: 0px;
+        height: 510px;
       }
       .inner {
         line-height: 460px;

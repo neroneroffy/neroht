@@ -28,6 +28,7 @@ class Header extends React.Component {
       this.setState({
          current: `/${pathname.split('/')[1]}`
       });
+      window.addEventListener('scroll', this.handleScroll);
     }
     clickLogo = () => {
       this.setState({
@@ -47,10 +48,12 @@ class Header extends React.Component {
       })
     }
     handleScroll = () => {
-      if (window.scrollY > 570) {
-          this.refs.header.style.background = "#160e0f";
-      }else{
-        this.refs.header.style.background = "rgba(22,14,15,0)";
+      if (document) {
+        if (window.scrollY > 200) {
+          document.getElementsByClassName('header-fixed')[0].style.backgroundColor = "#0a0702";
+        }else{
+          document.getElementsByClassName('header-fixed')[0].style.backgroundColor = "rgba(22,14,15,0)";
+        }
       }
     }
     handleClick = (e) => {
@@ -101,7 +104,7 @@ class Header extends React.Component {
           <Link to='/about'>关于</Link>
         </Menu.Item>
       </Menu>
-      return (<div id="header">
+      return (<div id="header" ref="header">
         <div className="header-height"></div>
         <div className="header-fixed" ref="header">
           <div className="inner">
@@ -121,7 +124,7 @@ class Header extends React.Component {
           </div>
         </div>
         <Drawer
-          title="Basic Drawer"
+
           placement="right"
           closable={false}
           onClose={this.menuClose}
