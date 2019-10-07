@@ -70,6 +70,7 @@ class Index extends React.Component {
   render() {
     const { articleList, total, tagsList, loading } = this.props
     const { selectedTags, page } = this.state
+    console.log(articleList);
     return <div id="article">
       <Helmet>
         <meta name="keywords" content="前端 web前端 React Vue node.js Angular 前端开发 网站建设 IT咨询 个人网站 React服务端渲染"/>

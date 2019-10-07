@@ -18,7 +18,7 @@ import ScrollLoadPage from '../../components/ScrollLoadPage'
 import { Helmet } from "react-helmet"
 import ScrollToTop from '../../components/ScrollToTop'
 import logo from '../../assets/img/logo3.png'
-import bg from '../../assets/img/bg.jpg'
+import bannerDesign from '../../assets/img/banner_design.jpg'
 
 moment.locale('zh-cn');
 const TYPE = 'design'
@@ -81,10 +81,8 @@ class WorkComponent extends React.Component {
       </Helmet>
       <ScrollToTop element={"work"}/>
      <div className="banner">
-       <img src={bg} alt=""/>
-       <div className="inner">
-         <img src={logo} alt=""/>
-       </div>
+       <img src={bannerDesign} alt=""/>
+
      </div>
      <div className="work-inner">
        <ScrollLoadPage

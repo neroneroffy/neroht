@@ -64,6 +64,7 @@ class Index extends React.Component {
 
   render() {
     const { detailData, messageData, total } = this.props
+    console.log(detailData);
     const { loading } = this.state
     let html = converter.makeHtml(detailData.content)
     if (html) {
