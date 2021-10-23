@@ -46,6 +46,7 @@ jobs:
         uses: easingthemes/ssh-deploy@v2.0.7
         env:
           SSH_PRIVATE_KEY: ${{ secrets.ACCESS_TOKEN }}
+          ARGS: "-avz --delete"
           SOURCE: "dist/"
           REMOTE_HOST: 123.206.81.58
           REMOTE_PORT: 48090
