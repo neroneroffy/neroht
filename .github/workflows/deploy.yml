@@ -52,3 +52,4 @@ jobs:
           REMOTE_PORT: ${{ secrets.REMOTE_PORT }}
           REMOTE_USER: ${{ secrets.REMOTE_USER }}
           TARGET: ${{ secrets.TARGET }}
+          EXCLUDE: ["node_modules", "config", "dev-public", "src", ".github", ".git"]
