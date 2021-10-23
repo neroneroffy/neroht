@@ -18,9 +18,9 @@ const isProd = process.env.NODE_ENV === 'production'
 const clientConfig = {
     entry: path.join(__dirname, '../src/client/index.js'),
     output: {
-        path: path.join(__dirname, '../public/static/'),
-        filename: 'js/client.[hash:5].js',
-        chunkFilename: "js/[name].js",
+        path: path.join(__dirname, '../dist/public/static/'),
+        filename: 'js/client.[contenthash:5].js',
+        chunkFilename: "js/[name].[contenthash:5].js",
         publicPath: '/static/'
     },
     module: {

@@ -11,7 +11,7 @@ const theme = require('../package.json').theme
 const serverConfig = {
     entry:  path.resolve(__dirname, '../src/server/app.js'),
     output: {
-        path: path.resolve(__dirname, '../server-bundle'),
+        path: path.resolve(__dirname, '../dist/server-bundle'),
         filename: 'root.server.js',
         publicPath: '/static/'
     },
